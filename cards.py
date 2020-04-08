@@ -59,6 +59,49 @@ class Card:
         return second_card_better
 
 
+def card_comparison(self, card_to_compare):
+    """Return two cards after comparing them."""
+    comparison_dictionary = {
+        'better_card': None,
+        'worse_card': None
+    }
+    second_card_better = False
+    if self.value == "miss" or self.value == "curse":
+        second_card_better = True
+    elif self.value == "2x" or self.value == "bless":
+        second_card_better = False
+    elif card_to_compare.value == "miss" or\
+            card_to_compare.value == "curse":
+        second_card_better = False
+    elif card_to_compare.value == "2x" or card_to_compare.value == "bless":
+        second_card_better = True
+    elif card_to_compare.is_rolling:
+        second_card_better = False
+    else:
+        if int(self.value) < int(card_to_compare.value):
+            second_card_better = True
+        elif int(self.value) == int(card_to_compare.value):
+            if (
+                (
+                    card_to_compare.status_effect is not None
+                    or card_to_compare.element is not None
+                )
+                and
+                (
+                    self.status_effect is not None
+                    and self.element is not None
+                )
+            ):
+                second_card_better = True
+    if second_card_better:
+        comparison_dictionary['better_card'] = card_to_compare
+        comparison_dictionary['worse_card'] = self
+    else:
+        comparison_dictionary['better_card'] = self
+        comparison_dictionary['worse_card'] = card_to_compare
+    return second_card_better
+
+
 class Character_Card(Card):
     """Cards added from perks."""
 
