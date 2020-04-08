@@ -33,9 +33,16 @@ class Character_Class:
         #          []
         #          )
         # )
-        for perk in all_perks:
-            if perk[0] == self.character_class:
-                self.perks.append(Perk(perk[0], perk[1], perk[2]))
+        # for perk in all_perks:
+        #     if perk[0] == self.character_class:
+        #         self.perks.append(Perk(perk[0], perk[1], perk[2]))
+        class_perks = class_dictionary[self.character_class]
+        print(class_perks)
+        for perk in class_perks:
+            print(perk)
+            print(perk[0])
+            print(perk[1])
+            self.perks.append(Perk(perk[0], perk[1]))
 
 
 # "character_class", [add_cards], [remove_cards]
@@ -43,28 +50,60 @@ class Character_Class:
 
 # Perk("sunkeeper", [Character_Card(1, "sunkeeper", True, None, None),
 #                Character_Card(1, "sunkeeper", True, None, None)], [])
-sunkeeper_perks = [
-    ["sunkeeper", [], [-1, -1]],
-    ["sunkeeper", [], [-1, -1]],
-    ["sunkeeper", [], [0, 0, 0, 0]],
-    ["sunkeeper", [Card(0)], [-2]],
-    ["sunkeeper", [Card(2)], [0]],
-    ["sunkeeper", [Character_Card(1, "sunkeeper", True, None, None),
-                   Character_Card(1, "sunkeeper", True, None, None)], []],
-    ["sunkeeper", [Character_Card(1, "sunkeeper", True, None, None),
-                   Character_Card(1, "sunkeeper", True, None, None)], []],
-    ["sunkeeper", [Character_Card(0, "sunkeeper", True, "heal1", None),
-                   Character_Card(0, "sunkeeper", True, "heal1", None)], []],
-    ["sunkeeper", [Character_Card(0, "sunkeeper", True, "heal1", None),
-                   Character_Card(0, "sunkeeper", True, "heal1", None)], []],
-    ["sunkeeper", [Character_Card(0, "sunkeeper", True, "stun", None)], []],
-    ["sunkeeper", [Character_Card(0, "sunkeeper", True, None, "light"),
-                   Character_Card(0, "sunkeeper", True, None, "light")], []],
-    ["sunkeeper", [Character_Card(0, "sunkeeper", True, None, "light"),
-                   Character_Card(0, "sunkeeper", True, None, "light")], []],
-    ["sunkeeper", [Character_Card(0, "sunkeeper", True, "shield1", None),
-                   Character_Card(0, "sunkeeper", True, "shield1", None)], []],
-    ["sunkeeper", [Card(1), Card(1)], []],
-    ["sunkeeper", [], []],
 
+sunkeeper_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Card(0)], [-2]
+    ],
+    [
+        [Card(2)], [0]
+    ],
+    [
+        [Character_Card(1, "sunkeeper", True, None, None),
+         Character_Card(1, "sunkeeper", True, None, None)], []
+    ],
+    [
+        [Character_Card(1, "sunkeeper", True, None, None),
+         Character_Card(1, "sunkeeper", True, None, None)], []
+    ],
+    [
+        [Character_Card(0, "sunkeeper", True, "heal1", None),
+         Character_Card(0, "sunkeeper", True, "heal1", None)], []
+    ],
+    [
+        [Character_Card(0, "sunkeeper", True, "heal1", None),
+         Character_Card(0, "sunkeeper", True, "heal1", None)], []
+    ],
+    [
+        [Character_Card(0, "sunkeeper", True, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, "sunkeeper", True, None, "light"),
+         Character_Card(0, "sunkeeper", True, None, "light")], []
+    ],
+    [
+        [Character_Card(0, "sunkeeper", True, None, "light"),
+         Character_Card(0, "sunkeeper", True, None, "light")], []],
+    [
+        [Character_Card(0, "sunkeeper", True, "shield1", None),
+         Character_Card(0, "sunkeeper", True, "shield1", None)], []
+    ],
+    [
+        [Card(1), Card(1)], []
+    ],
+    [
+        [], []
+    ],
 ]
+class_dictionary = {
+    'sunkeeper': sunkeeper_perks
+}
