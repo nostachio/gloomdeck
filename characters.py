@@ -50,7 +50,6 @@ class Character_Class:
 
 # Perk("sunkeeper", [Character_Card(1, "sunkeeper", True, None, None),
 #                Character_Card(1, "sunkeeper", True, None, None)], [])
-
 sunkeeper_perks = [
     [
         [], [-1, -1]
@@ -104,6 +103,40 @@ sunkeeper_perks = [
         [], []
     ],
 ]
+brute_perks = []
+tinkerer_perks = []
+spellweaver_perks = []
+cragheart_perks = []
+scoundrel_perks = []
+mindtheif_perks = []
+quartermaster_perks = []
+summoner_perks = []
+nightshroud_perks = []
+plagueherald_perks = []
+berserker_perks = []
+soothsinger_perks = []
+doomstalker_perks = []
+sawbones_perks = []
+elementalist_perks = []
+beast_tyrant_perks = []
+diviner_perks = []
 class_dictionary = {
-    'sunkeeper': sunkeeper_perks
+    'sunkeeper': sunkeeper_perks,
+    'brute': brute_perks,
+    'tinkerer': tinkerer_perks,
+    'spellweaver': spellweaver_perks,
+    'cragheart': cragheart_perks,
+    'scoundrel': scoundrel_perks,
+    'mindtheif': mindtheif_perks,
+    'quartermaster': quartermaster_perks,
+    'summoner': summoner_perks,
+    'nightshroud': nightshroud_perks,
+    'plagueherald': plagueherald_perks,
+    'berserker': berserker_perks,
+    'soothsinger': soothsinger_perks,
+    'doomstalker': doomstalker_perks,
+    'sawbones': sawbones_perks,
+    'elementalist': elementalist_perks,
+    'beast_tyrant': beast_tyrant_perks,
+    'diviner': diviner_perks
 }
