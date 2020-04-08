@@ -19,6 +19,120 @@ class Last_Draw:
         self.modifiers = []
         for modifier in modifiers:
             self.modifiers.append(modifier)
+        self.attack = self.attack_result()
+        self.status_effects = self.status_effect_result()
+        self.elements = self.elements_result()
+
+    def attack_result(self):
+        """Add up the attack modifiers."""
+        attack_values = []
+        attack_multiplier = 1
+        attack_sum = 0
+        no_damage = False
+        if self.draw_type == "simple" or (self.draw_type == "advantage"
+                                          and len(self.cards == 1)):
+            for card in (self.cards + self.modifiers):
+                attack_values.append(card.value)
+        elif self.draw_type == "advantage":
+            # append better card.  no modifiers will be present
+            card_set = self.cards[0].card_comparison(self.cards[1])
+            attack_values.append(card_set['better_card'].value)
+        else:  # disadvantage
+            if len(self.cards) == 2:
+                card_set = self.cards[0].card_comparison(self.cards[1])
+                attack_values.append(card_set['worse_card'].value)
+            else:
+                attack_values.append(self.cards[0].value)
+        for value in attack_values:
+            if value == "2x" or card.value == "bless":
+                attack_multiplier = 2
+            elif value == "miss" or card.value == "curse":
+                no_damage = True
+            else:
+                attack_sum += value
+        total_attack = attack_sum * attack_multiplier
+        if no_damage:
+            total_attack = "no_damage"
+        return total_attack
+
+    def status_effect_result(self):
+        """Combine all status effects."""
+        status_effect_list = []
+        self.status_effects = {
+            'stun': False,
+            'immobilize': False,
+            'disarm': False,
+            'wound': False,
+            'muddle': False,
+            'poison': False,
+            'strengthen': False,
+            'invisible': False,
+            'regenerate': False,
+            'push1': 0,
+            'push2': 0,
+            'pull1': 0,
+            'pierce3': 0,
+            'target': 0,
+            'heal_self1': 0,
+            'heal_self2': 0,
+            'heal_self3': 0,
+            'heal_ally2': 0,
+            'shield_self1': 0,
+            'shield_ally1': 0,
+            'curse': 0,
+            'item': False
+        }
+        if self.draw_type == "simple" or (self.draw_type == "advantage"
+                                          and len(self.cards == 1)):
+            for card in (self.cards + self.modifiers):
+                status_effect_list.append(card.status_effect)
+        elif self.draw_type == "advantage":
+            # append better card.  no modifiers will be present
+            card_set = self.cards[0].card_comparison(self.cards[1])
+            status_effect_list.append(card_set['better_card'].status_effect)
+        else:  # disadvantage
+            if len(self.cards) == 2:
+                card_set = self.cards[0].card_comparison(self.cards[1])
+                status_effect_list.append(card_set['worse_card'].status_effect)
+            else:
+                status_effect_list.append(self.cards[0].status_effect)
+        for effect in status_effect_list:
+            if card.status_effect in ['push', 'pull', 'pierce', 'target',
+                                      'heal_self', 'heal_ally',
+                                      'shield_self', 'shield_ally',
+                                      'curse']:
+                self.status_effect['{0}'.format(effect)] += 1
+            elif card.status_effect is not None:
+                self.status_effects['{0}'.format(effect)] = True
+
+    def elements_result(self):
+        """Define result of last draw."""
+        element_list = []
+        self.elements = {
+            'light': False,
+            'dark': False,
+            'fire': False,
+            'ice': False,
+            'earth': False,
+            'wind': False
+        }
+        if self.draw_type == "simple" or (self.draw_type == "advantage"
+                                          and len(self.cards == 1)):
+            for card in (self.cards + self.modifiers):
+                element_list.append(card.status_effect)
+        elif self.draw_type == "advantage":
+            # append better card.  no modifiers will be present
+            card_set = self.cards[0].card_comparison(self.cards[1])
+            element_list.append(card_set['better_card'].element)
+        else:  # disadvantage
+            if len(self.cards) == 2:
+                card_set = self.cards[0].card_comparison(self.cards[1])
+                element_list.append(card_set['worse_card'].element)
+            else:
+                element_list.append(self.cards[0].element)
+        for element in element_list:
+            if element is not None:
+                self.elements['{0}'.format(element)] = True
 
 
 class Deck:
