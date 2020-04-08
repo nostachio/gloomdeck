@@ -169,20 +169,83 @@ class Discard(RelativeLayout):
     def update(self):
         """Place cards onto discard pile."""
         self.clear_widgets()
-        if len(myDeck.discard) != 0:
-            if myDeck.last_draw.draw_type == "simple":
-                main_card = myDeck.last_draw.cards[0]
-                discard = SpecificCard(
-                    modifier_image=main_card.main_image,
-                    element_image=main_card.element_image,
-                    status_image=main_card.status_effect_image,
-                    rolling_image=main_card.rolling_image,
-                    class_image=main_card.character_class_image,
-                    my_pos_hint=({'center_x': 0.5, 'center_y': 0.5}))
-                self.add_widget(discard)
-                for i, rolling_card in enumerate(myDeck.last_draw.modifiers):
-                    cx = 0.9 - (0.2 * (i / 5))
-                    cy = 0.9 - (0.2 * (i % 5))
+        # if len(myDeck.discard) != 0:
+        if myDeck.last_draw.draw_type == "simple":
+            main_card = myDeck.last_draw.cards[0]
+            discard = SpecificCard(
+                modifier_image=main_card.main_image,
+                element_image=main_card.element_image,
+                status_image=main_card.status_effect_image,
+                rolling_image=main_card.rolling_image,
+                class_image=main_card.character_class_image,
+                my_pos_hint=({'center_x': 0.5, 'center_y': 0.5}))
+            self.add_widget(discard)
+            for i, rolling_card in enumerate(myDeck.last_draw.modifiers):
+                cx = 0.9 - (0.2 * (i / 5))
+                cy = 0.9 - (0.2 * (i % 5))
+                rolling =\
+                    SpecificCard(
+                        modifier_image=rolling_card.main_image,
+                        element_image=rolling_card.element_image,
+                        status_image=rolling_card.status_effect_image,
+                        rolling_image=rolling_card.rolling_image,
+                        class_image=rolling_card.character_class_image,
+                        size_hint_x=(.2),
+                        size_hint_y=(.2),
+                        pos_hint=({'center_y': cy, 'center_x': cx}))
+                self.add_widget(rolling)
+        else:
+            card_one = myDeck.last_draw.cards[0]
+            if len(myDeck.last_draw.cards) == 2:
+                card_two = myDeck.last_draw.cards[1]
+                if card_one.is_this_card_better_than_me(card_two):
+                    main_card = card_two
+                    secondary_card = card_one
+                else:
+                    main_card = card_one
+                    secondary_card = card_two
+            elif myDeck.last_draw.draw_type == "advantage":
+                main_card = card_one
+                secondary_card = myDeck.last_draw.modifiers[0]
+            else:  # disadvantage
+                main_card = card_one
+                secondary_card = myDeck.last_draw.modifiers[0]
+                # print("secondary_card", secondary_card.value)
+                # print("2nd better?",
+                # card_one.is_this_card_better_than_me(secondary_card))
+            discard_main_card = SpecificCard(
+                modifier_image=main_card.main_image,
+                element_image=main_card.element_image,
+                status_image=main_card.status_effect_image,
+                rolling_image=main_card.rolling_image,
+                class_image=main_card.character_class_image,
+                size_hint_x=(.65),
+                size_hint_y=(.65),
+                pos_hint=({'center_x': 0.3, 'center_y': 0.3})
+            )
+            discard_secondary_card = SpecificCard(
+                modifier_image=secondary_card.main_image,
+                element_image=secondary_card.element_image,
+                status_image=secondary_card.status_effect_image,
+                rolling_image=secondary_card.rolling_image,
+                class_image=secondary_card.character_class_image,
+                size_hint_x=(.45),
+                size_hint_y=(.45),
+                pos_hint=({'center_x': 0.7, 'center_y': 0.7})
+            )
+            self.add_widget(discard_secondary_card)
+            self.add_widget(discard_main_card)
+            if len(myDeck.last_draw.modifiers) > 1:
+                for i, rolling_card in enumerate(
+                        myDeck.last_draw.modifiers[1:]):
+                    if i < 5:
+                        cx = 0.1 + (0.2 * (i / 2))
+                        cy = 0.9 - (0.2 * (i % 2))
+                    else:
+                        cx = 0.7 - (0.2 * ((4 - i) / 2))
+                        cy = 0.38 - (0.2 * ((4 - i) % 2))
+                    # cx = 0.7 + (0.2 * (i / 2))
+                    # cy = 0.38 - (0.2 * (i % 2))
                     rolling =\
                         SpecificCard(
                             modifier_image=rolling_card.main_image,
@@ -194,50 +257,6 @@ class Discard(RelativeLayout):
                             size_hint_y=(.2),
                             pos_hint=({'center_y': cy, 'center_x': cx}))
                     self.add_widget(rolling)
-            else:
-                print("type", myDeck.last_draw.draw_type)
-                print("cards", myDeck.last_draw.cards)
-                print("mods", myDeck.last_draw.modifiers)
-                card_one = myDeck.last_draw.cards[0]
-                if len(myDeck.last_draw.cards) == 2:
-                    card_two = myDeck.last_draw.cards[1]
-                    if card_one.is_this_card_better_than_me(card_two):
-                        main_card = card_two
-                        secondary_card = card_one
-                    else:
-                        main_card = card_one
-                        secondary_card = card_two
-                elif myDeck.last_draw.draw_type == "advantage":
-                    main_card = card_one
-                    secondary_card = myDeck.last_draw.modifiers[0]
-                else:  # disadvantage
-                    print("main_card", card_one.value)
-                    main_card = card_one
-                    secondary_card = myDeck.last_draw.modifiers[0]
-                    print("secondary_card", secondary_card.value)
-                    print("2nd better?", card_one.is_this_card_better_than_me(secondary_card))
-                discard_main_card = SpecificCard(
-                    modifier_image=main_card.main_image,
-                    element_image=main_card.element_image,
-                    status_image=main_card.status_effect_image,
-                    rolling_image=main_card.rolling_image,
-                    class_image=main_card.character_class_image,
-                    size_hint_x=(.65),
-                    size_hint_y=(.65),
-                    pos_hint=({'center_x': 0.3, 'center_y': 0.3})
-                )
-                discard_secondary_card = SpecificCard(
-                    modifier_image=secondary_card.main_image,
-                    element_image=secondary_card.element_image,
-                    status_image=secondary_card.status_effect_image,
-                    rolling_image=secondary_card.rolling_image,
-                    class_image=secondary_card.character_class_image,
-                    size_hint_x=(.45),
-                    size_hint_y=(.45),
-                    pos_hint=({'center_x': 0.7, 'center_y': 0.7})
-                )
-                self.add_widget(discard_secondary_card)
-                self.add_widget(discard_main_card)
 
 
 class DeckApp(App):
