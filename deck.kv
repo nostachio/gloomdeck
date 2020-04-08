@@ -105,6 +105,8 @@
         #     size_hint: 0.2, 0.2
         #     pos_hint: {'center_x': 0.1, 'center_y': 0.8}
 <SpecificCard>:
+    opacity: root.my_opacity
+    #opacity: .3
     #size_hint: 1, 1
     #pos_hint: self.my_pos_hint
     #size_hint_x: root.my_size_hint_x
@@ -149,7 +151,7 @@
     Image:
         source: 'images/null.png'
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        # source: 'images/light.png'             
+        # source: 'images/light.png'    
 <TopButtons>:
     #size_hint_y: 0.1
     #size_hint_x: 1

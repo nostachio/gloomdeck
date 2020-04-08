@@ -10,6 +10,7 @@ import deck
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.properties import DictProperty
+# from kivy.properties import ListProperty
 from kivy.core.window import Window
 Window.size = (360, 780)
 
@@ -156,6 +157,7 @@ class SpecificCard(RelativeLayout):
     my_size_hint_x = NumericProperty(1)
     my_size_hint_y = NumericProperty(1)
     my_pos_hint = DictProperty({'center_x': 0.5, 'center_y': 0.5})
+    my_opacity = NumericProperty(1)
 
 
 class Discard(RelativeLayout):
@@ -169,7 +171,6 @@ class Discard(RelativeLayout):
     def update(self):
         """Place cards onto discard pile."""
         self.clear_widgets()
-        # if len(myDeck.discard) != 0:
         if myDeck.last_draw.draw_type == "simple":
             main_card = myDeck.last_draw.cards[0]
             discard = SpecificCard(
@@ -201,15 +202,21 @@ class Discard(RelativeLayout):
                 if card_one.is_this_card_better_than_me(card_two):
                     main_card = card_two
                     secondary_card = card_one
+                    secondary_card_opacity = 0.3
                 else:
                     main_card = card_one
                     secondary_card = card_two
+                    secondary_card_opacity = 0.3
             elif myDeck.last_draw.draw_type == "advantage":
                 main_card = card_one
                 secondary_card = myDeck.last_draw.modifiers[0]
+                secondary_card_opacity = 1
+                rolling_opacity = 1
             else:  # disadvantage
                 main_card = card_one
                 secondary_card = myDeck.last_draw.modifiers[0]
+                secondary_card_opacity = 0.3
+                rolling_opacity = 0.3
                 # print("secondary_card", secondary_card.value)
                 # print("2nd better?",
                 # card_one.is_this_card_better_than_me(secondary_card))
@@ -231,6 +238,7 @@ class Discard(RelativeLayout):
                 class_image=secondary_card.character_class_image,
                 size_hint_x=(.45),
                 size_hint_y=(.45),
+                my_opacity=secondary_card_opacity,
                 pos_hint=({'center_x': 0.7, 'center_y': 0.7})
             )
             self.add_widget(discard_secondary_card)
@@ -255,6 +263,7 @@ class Discard(RelativeLayout):
                             class_image=rolling_card.character_class_image,
                             size_hint_x=(.2),
                             size_hint_y=(.2),
+                            my_opacity=rolling_opacity,
                             pos_hint=({'center_y': cy, 'center_x': cx}))
                     self.add_widget(rolling)
 
