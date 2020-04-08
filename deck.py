@@ -30,7 +30,7 @@ class Last_Draw:
         attack_sum = 0
         no_damage = False
         if self.draw_type == "simple" or (self.draw_type == "advantage"
-                                          and len(self.cards == 1)):
+                                          and len(self.cards) == 1):
             for card in (self.cards + self.modifiers):
                 attack_values.append(card.value)
         elif self.draw_type == "advantage":
@@ -44,12 +44,12 @@ class Last_Draw:
             else:
                 attack_values.append(self.cards[0].value)
         for value in attack_values:
-            if value == "2x" or card.value == "bless":
+            if value == "2x" or value == "bless":
                 attack_multiplier = 2
-            elif value == "miss" or card.value == "curse":
+            elif value == "miss" or value == "curse":
                 no_damage = True
             else:
-                attack_sum += value
+                attack_sum += int(value)
         total_attack = attack_sum * attack_multiplier
         if no_damage:
             total_attack = "no_damage"
@@ -83,7 +83,7 @@ class Last_Draw:
             'item': False
         }
         if self.draw_type == "simple" or (self.draw_type == "advantage"
-                                          and len(self.cards == 1)):
+                                          and len(self.cards) == 1):
             for card in (self.cards + self.modifiers):
                 status_effect_list.append(card.status_effect)
         elif self.draw_type == "advantage":
@@ -97,12 +97,12 @@ class Last_Draw:
             else:
                 status_effect_list.append(self.cards[0].status_effect)
         for effect in status_effect_list:
-            if card.status_effect in ['push', 'pull', 'pierce', 'target',
-                                      'heal_self', 'heal_ally',
-                                      'shield_self', 'shield_ally',
-                                      'curse']:
+            if effect in ['push', 'pull', 'pierce', 'target',
+                          'heal_self', 'heal_ally',
+                          'shield_self', 'shield_ally',
+                          'curse']:
                 self.status_effect['{0}'.format(effect)] += 1
-            elif card.status_effect is not None:
+            elif effect is not None:
                 self.status_effects['{0}'.format(effect)] = True
 
     def elements_result(self):
@@ -117,7 +117,7 @@ class Last_Draw:
             'wind': False
         }
         if self.draw_type == "simple" or (self.draw_type == "advantage"
-                                          and len(self.cards == 1)):
+                                          and len(self.cards) == 1):
             for card in (self.cards + self.modifiers):
                 element_list.append(card.status_effect)
         elif self.draw_type == "advantage":
