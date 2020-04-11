@@ -13,6 +13,8 @@ class Last_Draw:
     def __init__(self, draw_type, cards, modifiers):
         """Initialize attributes."""
         self.draw_type = draw_type
+        self.double_damage = False
+        self.no_damage = False
         self.cards = []
         for card in cards:
             self.cards.append(card)
@@ -22,13 +24,12 @@ class Last_Draw:
         self.attack = self.attack_result()
         self.status_effects = self.status_effect_result()
         self.elements = self.elements_result()
+        print(self.status_effects)
 
     def attack_result(self):
         """Add up the attack modifiers."""
         attack_values = []
-        attack_multiplier = 1
         attack_sum = 0
-        no_damage = False
         if self.draw_type == "simple" or (self.draw_type == "advantage"
                                           and len(self.cards) == 1):
             for card in (self.cards + self.modifiers):
@@ -45,20 +46,18 @@ class Last_Draw:
                 attack_values.append(self.cards[0].value)
         for value in attack_values:
             if value == "2x" or value == "bless":
-                attack_multiplier = 2
+                self.double_damage = True
             elif value == "miss" or value == "curse":
-                no_damage = True
+                self.no_damage = True
             else:
                 attack_sum += int(value)
-        total_attack = attack_sum * attack_multiplier
-        if no_damage:
-            total_attack = "no_damage"
+        total_attack = attack_sum
         return total_attack
 
     def status_effect_result(self):
         """Combine all status effects."""
         status_effect_list = []
-        self.status_effects = {
+        status_effects = {
             'stun': False,
             'immobilize': False,
             'disarm': False,
@@ -70,15 +69,23 @@ class Last_Draw:
             'regenerate': False,
             'push1': 0,
             'push2': 0,
+            'push_total': 0,
             'pull1': 0,
+            'pull_total': 0,
             'pierce3': 0,
+            'pierce_total': 0,
             'target': 0,
+            'target_total': 0,
             'heal_self1': 0,
             'heal_self2': 0,
             'heal_self3': 0,
+            'heal_self_total': 0,
             'heal_ally2': 0,
+            'heal_ally_total': 0,
             'shield_self1': 0,
+            'shield_self_total': 0,
             'shield_ally1': 0,
+            'shield_ally_total': 0,
             'curse': 0,
             'item': False
         }
@@ -97,18 +104,38 @@ class Last_Draw:
             else:
                 status_effect_list.append(self.cards[0].status_effect)
         for effect in status_effect_list:
-            if effect in ['push', 'pull', 'pierce', 'target',
-                          'heal_self', 'heal_ally',
-                          'shield_self', 'shield_ally',
+            if effect in ['push1', 'push2', 'pull1', 'pierce3', 'target',
+                          'heal_self1', 'heal_self2', 'heal_self3',
+                          'heal_ally2', 'shield_self1', 'shield_ally1',
                           'curse']:
-                self.status_effect['{0}'.format(effect)] += 1
-            elif effect is not None:
-                self.status_effects['{0}'.format(effect)] = True
+                status_effects['{0}'.format(effect)] += 1
+            else:
+                status_effects['{0}'.format(effect)] = True
+        status_effects['push_total'] =\
+            ((1 * status_effects['push1'])
+             + (2 * status_effects['push2']))
+        status_effects['pull_total'] =\
+            (1 * status_effects['pull1'])
+        status_effects['pierce_total'] =\
+            (3 * status_effects['pierce3'])
+        status_effects['target_total'] =\
+            (1 * status_effects['target'])
+        status_effects['heal_self_total'] = (
+            (1 * status_effects['heal_self1'])
+            + (2 * status_effects['heal_self2'])
+            + (3 * status_effects['heal_self3']))
+        status_effects['heal_ally_total'] =\
+            (2 * status_effects['heal_ally2'])
+        status_effects['shield_self_total'] =\
+            (1 * status_effects['shield_self1'])
+        status_effects['shield_ally_total'] =\
+            (1 * status_effects['shield_ally1'])
+        status_effects.pop('None', None)
+        return status_effects
 
     def elements_result(self):
         """Define result of last draw."""
-        element_list = []
-        self.elements = {
+        elements = {
             'light': False,
             'dark': False,
             'fire': False,
@@ -119,20 +146,19 @@ class Last_Draw:
         if self.draw_type == "simple" or (self.draw_type == "advantage"
                                           and len(self.cards) == 1):
             for card in (self.cards + self.modifiers):
-                element_list.append(card.status_effect)
+                elements[card.element] = True
         elif self.draw_type == "advantage":
             # append better card.  no modifiers will be present
             card_set = self.cards[0].card_comparison(self.cards[1])
-            element_list.append(card_set['better_card'].element)
+            elements[card_set['better_card'].element] = True
         else:  # disadvantage
             if len(self.cards) == 2:
                 card_set = self.cards[0].card_comparison(self.cards[1])
-                element_list.append(card_set['worse_card'].element)
+                elements[card_set['worse_card'].element] = True
             else:
-                element_list.append(self.cards[0].element)
-        for element in element_list:
-            if element is not None:
-                self.elements['{0}'.format(element)] = True
+                elements[self.cards[0].element] = True
+        elements.pop(None, None)
+        return elements
 
 
 class Deck:
