@@ -167,7 +167,7 @@ class Deck:
     def __init__(self, name, character_class):
         """Initialize attributes."""
         self.name = name
-        self.character_class = characters.Character_Class(character_class)
+        self.character_class = character_class
         self.full_deck = []
         for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
                       -1, -1, -2, "miss"]:

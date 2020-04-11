@@ -37,18 +37,18 @@ class Character_Class:
         #     if perk[0] == self.character_class:
         #         self.perks.append(Perk(perk[0], perk[1], perk[2]))
         class_perks = class_dictionary[self.character_class]
-        print(class_perks)
+        # print(class_perks)
         for perk in class_perks:
-            print(perk)
-            print(perk[0])
-            print(perk[1])
+            # print(perk)
+            # print(perk[0])
+            # print(perk[1])
             self.perks.append(Perk(perk[0], perk[1]))
 
 
-# "character_class", [add_cards], [remove_cards]
+# [add_cards], [remove_cards]
 # for list in all_perks:
 
-# Perk("sunkeeper", [Character_Card(1, "sunkeeper", True, None, None),
+# Perk([Character_Card(1, "sunkeeper", True, None, None),
 #                Character_Card(1, "sunkeeper", True, None, None)], [])
 sunkeeper_perks = [
     [
@@ -75,12 +75,12 @@ sunkeeper_perks = [
          Character_Card(1, "sunkeeper", True, None, None)], []
     ],
     [
-        [Character_Card(0, "sunkeeper", True, "heal1", None),
-         Character_Card(0, "sunkeeper", True, "heal1", None)], []
+        [Character_Card(0, "sunkeeper", True, "heal_self1", None),
+         Character_Card(0, "sunkeeper", True, "heal_self1", None)], []
     ],
     [
-        [Character_Card(0, "sunkeeper", True, "heal1", None),
-         Character_Card(0, "sunkeeper", True, "heal1", None)], []
+        [Character_Card(0, "sunkeeper", True, "heal_self1", None),
+         Character_Card(0, "sunkeeper", True, "heal_self1", None)], []
     ],
     [
         [Character_Card(0, "sunkeeper", True, "stun", None)], []
@@ -93,8 +93,8 @@ sunkeeper_perks = [
         [Character_Card(0, "sunkeeper", True, None, "light"),
          Character_Card(0, "sunkeeper", True, None, "light")], []],
     [
-        [Character_Card(0, "sunkeeper", True, "shield1", None),
-         Character_Card(0, "sunkeeper", True, "shield1", None)], []
+        [Character_Card(0, "sunkeeper", True, "shield_self1", None),
+         Character_Card(0, "sunkeeper", True, "shield_self1", None)], []
     ],
     [
         [Card(1), Card(1)], []
@@ -103,23 +103,914 @@ sunkeeper_perks = [
         [], []
     ],
 ]
-brute_perks = []
-tinkerer_perks = []
-spellweaver_perks = []
-cragheart_perks = []
-scoundrel_perks = []
-mindtheif_perks = []
-quartermaster_perks = []
-summoner_perks = []
-nightshroud_perks = []
-plagueherald_perks = []
-berserker_perks = []
-soothsinger_perks = []
-doomstalker_perks = []
-sawbones_perks = []
-elementalist_perks = []
-beast_tyrant_perks = []
-diviner_perks = []
+brute_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)],
+        []
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)],
+        []
+    ],
+    [
+        [Character_Card(3, False, None, None)], []
+    ],
+    [
+        [
+            Character_Card(0, True, "push1", None),
+            Character_Card(0, True, "push1", None),
+            Character_Card(0, True, "push1", None)
+        ],
+        []
+    ],
+    [
+        [
+            Character_Card(0, True, "push1", None),
+            Character_Card(0, True, "push1", None),
+            Character_Card(0, True, "push1", None)
+        ],
+        []
+    ],
+    [
+        [Character_Card(0, True, "pierce3", None),
+         Character_Card(0, True, "pierce3", None)
+         ],
+        []
+    ],
+    [
+        [
+            Character_Card(0, True, "stun", None)
+        ], []
+    ],
+    [
+        [Character_Card(0, True, "stun", None)
+         ], []
+    ],
+    [
+        [
+            Character_Card(0, True, "disarm", None),
+            Character_Card(0, True, "muddle", None)
+        ], []
+    ],
+    [
+        [Character_Card(0, True, "target", None)], []
+    ],
+    [
+        [Character_Card(0, True, "target", None)], []
+    ],
+    [
+        [Character_Card(1, True, "shield_self1", None)], []
+    ],
+    [
+        [Character_Card(1, False, None, None)], []
+    ],
+]
+tinkerer_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [Character_Card(0, False, None, None)], [-2]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ],
+    [
+        [Character_Card(3, False, None, None)], []
+    ],
+    [
+        [Character_Card(0, True, None, "fire"),
+         Character_Card(0, True, None, "fire")], []
+    ],
+    [
+        [Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(1, False, "heal_self2", None)], []
+    ],
+    [
+        [Character_Card(1, False, "heal_self2", None)], []
+    ],
+    [
+        [Character_Card(0, False, "target", None)], []
+    ],
+    [
+        [], []
+    ],
+]
+spellweaver_perks = [
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ],
+    [
+        [Character_Card(0, False, "stun", None)], []
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(1, False, "curse", None)], []
+    ],
+    [
+        [Character_Card(2, False, None, "fire")], []
+    ],
+    [
+        [Character_Card(2, False, None, "fire")], []
+    ],
+    [
+        [Character_Card(2, False, None, "ice")], []
+    ],
+    [
+        [Character_Card(2, False, None, "ice")], []
+    ],
+    [
+        [Character_Card(0, True, None, "earth"),
+         Character_Card(0, True, None, "wind")], []
+    ],
+    [
+        [Character_Card(0, True, None, "light"),
+         Character_Card(0, True, None, "dark")], []],
+]
+cragheart_perks = [
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, False, None, None),
+         Character_Card(2, False, None, None),
+         Character_Card(-2, False, None, None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(2, False, "muddle", None)], []
+    ],
+    [
+        [Character_Card(2, False, "muddle", None)], []
+    ],
+    [
+        [Character_Card(0, True, "push2", None),
+         Character_Card(0, True, "push2", None)], []
+    ],
+    [
+        [Character_Card(0, True, None, "earth"),
+         Character_Card(0, True, None, "earth")], []
+    ],
+    [
+        [Character_Card(0, True, None, "earth"),
+         Character_Card(0, True, None, "earth")], []
+    ],
+    [
+        [Character_Card(0, True, None, "wind"),
+         Character_Card(0, True, None, "wind")], []
+    ],
+    [
+        [], []
+    ],
+    [
+        [], []
+    ],
+]
+scoundrel_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(0, False, None, None)], [-2]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(0, True, "pierce3", None),
+         Character_Card(0, True, "pierce3", None)], []
+    ],
+    [
+        [Character_Card(0, True, "poison", None),
+         Character_Card(0, True, "poison", None)], []
+    ],
+    [
+        [Character_Card(0, True, "poison", None),
+         Character_Card(0, True, "poison", None)], []
+    ],
+    [
+        [Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [Character_Card(0, True, "invisible", None)], []
+    ],
+    [
+        [], []
+    ],
+]
+mindtheif_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(2, False, None, None),
+         Character_Card(2, False, None, None)], [1, 1]
+    ],
+    [
+        [Character_Card(0, False, None, None)], [-2]
+    ],
+    [
+        [Character_Card(2, False, None, "ice")], []
+    ],
+    [
+        [Character_Card(2, False, None, "ice")], []
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(0, True, "pull1", None),
+         Character_Card(0, True, "pull1", None),
+         Character_Card(0, True, "pull1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [Character_Card(0, True, "immobilize", None),
+         Character_Card(0, True, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(0, True, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, True, "disarm", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [], []
+    ],
+]
+quartermaster_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [Character_Card(0, True, "pierce3", None),
+         Character_Card(0, True, "pierce3", None)], []
+    ],
+    [
+        [Character_Card(0, True, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, True, "target", None)], []
+    ],
+    [
+        [Character_Card(0, False, "item", None)], []
+    ],
+    [
+        [Character_Card(0, False, "item", None)], []
+    ],
+    [
+        [Character_Card(0, False, "item", None)], []
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ],
+]
+summoner_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [Character_Card(0, False, None, None)], [-2]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, False, None, None)], []
+    ],
+    [
+        [Character_Card(2, False, None, None)], []
+    ],
+    [
+        [Character_Card(0, True, "wound", None),
+         Character_Card(0, True, "wound", None)], []
+    ],
+    [
+        [Character_Card(0, True, "poison", None),
+         Character_Card(0, True, "poison", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, None, "fire"),
+         Character_Card(0, True, None, "wind")], []
+    ],
+    [
+        [Character_Card(0, True, None, "dark"),
+         Character_Card(0, True, None, "earth")], []
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ]
+]
+nightshroud_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(-1, False, None, "dark")], []
+    ],
+    [
+        [Character_Card(-1, False, None, "dark")], []
+    ],
+    [
+        [Character_Card(1, False, None, "dark")],
+        [Character_Card(-1, False, None, "dark")]
+    ],
+    [
+        [Character_Card(1, False, None, "dark")],
+        [Character_Card(-1, False, None, "dark")]
+    ],
+    [
+        [Character_Card(1, False, "invisible", None)], []
+    ],
+    [
+        [Character_Card(1, False, "invisible", None)], []
+    ],
+    [
+        [Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None),
+         Character_Card(0, True, "muddle", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "curse", None),
+         Character_Card(0, True, "curse", None)], []
+    ],
+    [
+        [Character_Card(0, True, "target", None)], []
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ]
+]
+plagueherald_perks = [
+    [
+        [Character_Card(0, False, None, None)], [-2]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ],
+    [
+        [Character_Card(1, False, None, "wind")], []
+    ],
+    [
+        [Character_Card(1, False, None, "wind")], []
+    ],
+    [
+        [Character_Card(1, False, None, "wind")], []
+    ],
+    [
+        [Character_Card(0, True, "poison", None),
+         Character_Card(0, True, "poison", None),
+         Character_Card(0, True, "poison", None)], []
+    ],
+    [
+        [Character_Card(0, True, "curse", None),
+         Character_Card(0, True, "curse", None)], []
+    ],
+    [
+        [Character_Card(0, True, "immobilize", None),
+         Character_Card(0, True, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(0, False, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, False, "stun", None)], []
+    ],
+    [
+        [Character_Card(1, False, None, None)], []
+    ],
+]
+berserker_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, True, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, True, None, None)], [0]
+    ],
+    [
+        [Character_Card(0, True, "wound", None),
+         Character_Card(0, True, "wound", None)], []
+    ],
+    [
+        [Character_Card(0, True, "wound", None),
+         Character_Card(0, True, "wound", None)], []
+    ],
+    [
+        [Character_Card(0, True, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, True, "stun", None)], []
+    ],
+    [
+        [Character_Card(1, True, "disarm", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(2, False, None, "fire")], []
+    ],
+    [
+        [Character_Card(2, False, None, "fire")], []
+    ]
+]
+soothsinger_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-2]
+    ],
+    [
+        [Character_Card(4, False, None, None)], [1, 1]
+    ],
+    [
+        [Character_Card(4, False, None, None)], [1, 1]
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], [0]
+    ],
+    [
+        [Character_Card(1, False, "disarm", None)], [0]
+    ],
+    [
+        [Character_Card(2, False, "wound", None)], [0]
+    ],
+    [
+        [Character_Card(2, False, "poison", None)], [0]
+    ],
+    [
+        [Character_Card(2, False, "curse", None)], [0]
+    ],
+    [
+        [Character_Card(3, False, "muddle", None)], [0]
+    ],
+    [
+        [Character_Card(0, False, "stun", None)], [-1]
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(0, True, "curse", None),
+         Character_Card(0, True, "curse", None)], []
+    ],
+    [
+        [Character_Card(0, True, "curse", None),
+         Character_Card(0, True, "curse", None)], []
+    ]
+]
+doomstalker_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], [0, 0]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], [0, 0]
+    ],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], [0, 0]
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(1, True, None, None),
+         Character_Card(1, True, None, None)], []
+    ],
+    [
+        [Character_Card(2, False, "muddle", None)], []
+    ],
+    [
+        [Character_Card(1, False, "poison", None)], []
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(0, False, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, True, "target", None)], []
+    ],
+    [
+        [Character_Card(0, True, "target", None)], []
+    ],
+    [
+        [], []
+    ],
+]
+sawbones_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [0, 0, 0, 0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, True, None, None)], []
+    ],
+    [
+        [Character_Card(2, True, None, None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(0, True, "wound", None),
+         Character_Card(0, True, "wound", None)], []
+    ],
+    [
+        [Character_Card(0, True, "wound", None),
+         Character_Card(0, True, "wound", None)], []
+    ],
+    [
+        [Character_Card(0, True, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self3", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self3", None)], []
+    ],
+    [
+        [Character_Card(0, False, "item", None)], []
+    ]
+]
+elementalist_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(0, False, None, "fire"),
+         Character_Card(0, False, None, "fire"),
+         Character_Card(0, False, None, "fire")], []
+    ],
+    [
+        [Character_Card(0, False, None, "ice"),
+         Character_Card(0, False, None, "ice"),
+         Character_Card(0, False, None, "ice")], []
+    ],
+    [
+        [Character_Card(0, False, None, "wind"),
+         Character_Card(0, False, None, "wind"),
+         Character_Card(0, False, None, "wind")], []
+    ],
+    [
+        [Character_Card(0, False, None, "earth"),
+         Character_Card(0, False, None, "earth"),
+         Character_Card(0, False, None, "earth")], []
+    ],
+    [
+        [Character_Card(0, False, None, "fire"),
+         Character_Card(0, False, None, "earth")], [0, 0]
+    ],
+    [
+        [Character_Card(0, False, None, "ice"),
+         Character_Card(0, False, None, "wind")], [0, 0]
+    ],
+    [
+        [Character_Card(1, False, "push1", None),
+         Character_Card(1, False, "push1", None)], []
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(0, False, "stun", None)], []
+    ],
+    [
+        [Character_Card(0, False, "target", None)], []
+    ],
+]
+beast_tyrant_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(1, False, None, None)], [-1]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, None)], [0]
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(1, False, "wound", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(1, False, "immobilize", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, None, "earth")], []
+    ],
+    [
+        [], []
+    ],
+]
+diviner_perks = [
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-1, -1]
+    ],
+    [
+        [], [-2]
+    ],
+    [
+        [Character_Card(3, False, "shield_self1", None)], [1, 1]
+    ],
+    [
+        [Character_Card(3, False, "shield_self1", None)], [1, 1]
+    ],
+    [
+        [Character_Card(1, False, "shield_ally1", None)], [0]
+    ],
+    [
+        [Character_Card(2, False, None, "dark")], [0]
+    ],
+    [
+        [Character_Card(2, False, None, "light")], [0]
+    ],
+    [
+        [Character_Card(3, False, "muddle", None)], [0]
+    ],
+    [
+        [Character_Card(3, False, "curse", None)], [0]
+    ],
+    [
+        [Character_Card(2, False, "regenerate", None)], [0]
+    ],
+    [
+        [Character_Card(1, False, "heal_ally2", None)], [-1]
+    ],
+    [
+        [Character_Card(0, True, "heal_self1", None),
+         Character_Card(0, True, "heal_self1", None)], []
+    ],
+    [
+        [Character_Card(0, True, "curse", None),
+         Character_Card(0, True, "curse", None)], []],
+    [
+        [Character_Card(1, False, None, None),
+         Character_Card(1, False, None, None)], []
+    ]
+]
 class_dictionary = {
     'sunkeeper': sunkeeper_perks,
     'brute': brute_perks,
