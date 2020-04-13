@@ -240,6 +240,20 @@ class Deck:
         """Count the number of curse cards in the deck."""
         return sum(1 for card in self.current_deck if card.value == "curse")
 
+    def add_demerit(self):
+        """Add a demerit card to the deck."""
+        self.current_deck.append(cards.Demerit_Card())
+        return
+
+    def remove_demerit(self):
+        """Remove a demerit card from the deck."""
+        pass
+
+    def count_demerits(self):
+        """Count the number of bless cards in the deck."""
+        return sum(1 for card in self.current_deck if card.value == "-1" and
+                   card.character_class_image == "images/star.png")
+
     def add_all_perks(self):
         """Temporary method to add all perks to deck for testing."""
         for perk in self.available_perks:

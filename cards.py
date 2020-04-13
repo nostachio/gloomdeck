@@ -174,3 +174,20 @@ class Curse_Card(Card):
         self.status_effect_image = 'images/null.png'
         self.element_image = 'images/null.png'
         self.character_class_image = 'images/null.png'
+
+
+class Demerit_Card(Card):
+    """Demerit Card."""
+
+    def __init__(self):
+        """Initialize attributes."""
+        self.value = "-1"
+        self.is_rolling = False
+        self.character_class = None
+        self.status_effect = None
+        self.element = None
+        self.main_image = self.select_main_image()
+        self.rolling_image = 'images/null.png'
+        self.status_effect_image = 'images/null.png'
+        self.element_image = 'images/null.png'
+        self.character_class_image = 'images/star.png'

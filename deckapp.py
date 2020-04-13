@@ -83,6 +83,20 @@ class CurseButton(Button):
         print("curse added")
 
 
+class DemeritButton(Button):
+    """Class for demerit button."""
+
+    def update(self):
+        """Change the label number to number of curses in deck."""
+        self.text = str(myDeck.count_demerits())
+
+    def add_curse(self):
+        """Add a demerit card to the deck."""
+        myDeck.add_demerit()
+        self.update()
+        print("demerit added")
+
+
 class Deck(RelativeLayout):
     """Deck widget."""
 
