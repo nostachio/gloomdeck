@@ -180,13 +180,18 @@ DrawResult:
     BlessButton:
         size_hint_y: 1
         size_hint_x: 0.1
-        pos_hint: {'center_x': .3}
+        pos_hint: {'center_x': .25}
         keep_ratio: True
         #allow_stretch: True
+    DemeritButton:
+        size_hint_y: 1
+        size_hint_x: 0.1
+        pos_hint: {'center_x': .40}
+        keep_ratio: True
     CurseButton:
         size_hint_y: 1
         size_hint_x: 0.1
-        pos_hint: {'center_x': .5}
+        pos_hint: {'center_x': .55}
         keep_ratio: True
         #allow_stretch: True
     AdvantageButton:
@@ -198,7 +203,7 @@ DrawResult:
     DisadvantageButton:
         size_hint_y: 1
         size_hint_x: 0.1
-        pos_hint: {'center_x': .9}
+        pos_hint: {'center_x': .85}
         keep_ratio: True
         #allow_stretch: True
 <Discard>:
@@ -275,6 +280,13 @@ DrawResult:
     valign: 'bottom'  
     text_size: self.size     
         #pos_hint: {'bottom': 1, 'right': 1}
+<DemeritButton>:
+    on_press: root.add_demerit()
+    background_normal: 'images/demerit.png'
+    text: "0"
+    halign: 'right'   
+    valign: 'bottom'  
+    text_size: self.size 
 <DrawModifier>:
 <BlessButton>:
     #size_hint: 0.1, 0.1
