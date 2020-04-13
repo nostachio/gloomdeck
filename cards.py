@@ -2,6 +2,7 @@
 
 Class for cards and their methods.
 """
+import Deck
 
 
 class Card:
@@ -109,7 +110,7 @@ class Character_Card(Card):
         self.value = str(value)
         self.is_rolling = is_rolling
         self.rolling_image = 'images/rolling.png'
-        self.character_class = myDeck.character_class
+        self.character_class = Deck.myDeck.character_class
         self.character_class_image = 'images/null.png'
         self.status_effect = status_effect
         self.element = element

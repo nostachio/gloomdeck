@@ -4,7 +4,7 @@ Class for Decks.
 """
 import random
 import cards
-import characters
+# import characters
 
 
 class Last_Draw:
