@@ -4,7 +4,7 @@ Class for Decks.
 """
 import random
 import cards
-# import characters
+import characters
 
 
 class Last_Draw:
@@ -24,7 +24,7 @@ class Last_Draw:
         self.attack = self.attack_result()
         self.status_effects = self.status_effect_result()
         self.elements = self.elements_result()
-        print(self.status_effects)
+        # print(self.status_effects)
 
     def attack_result(self):
         """Add up the attack modifiers."""
@@ -167,19 +167,21 @@ class Deck:
     def __init__(self, name, character_class):
         """Initialize attributes."""
         self.name = name
-        self.character_class = character_class
+        self.character_class = characters.Character_Class(character_class)
         self.full_deck = []
+        self.standard_deck = []
         for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
                       -1, -1, -2, "miss"]:
-            self.full_deck.append(cards.Card(value))
-        self.current_deck = self.full_deck
+            self.standard_deck.append(cards.Card(value=value))
+        self.current_deck = self.standard_deck
         self.discard = []
         self.active_perks = []
         self.available_perks = self.character_class.perks
-        self.bless_count = self.count_blesses()
-        self.curse_count = self.count_curses()
+        self.bless_count = 0
+        self.curse_count = 0
         # will figure out what to call extra -1 cards later
         self.demerit = 0
+        self.demerit_count = 0
         # last_draw will be [type_of_draw, [cards], [modifiers]]
         self.last_draw = None
         self.add_all_perks()
@@ -187,7 +189,7 @@ class Deck:
     def shuffle(self):
         """Shuffle deck."""
         for card in self.discard:
-            if card.value == "bless" or card.value == "curse":
+            if card.type == "bless" or card.type == "curse":
                 self.discard.remove(card)
         self.current_deck = self.current_deck + self.discard
         self.discard = []
@@ -206,6 +208,7 @@ class Deck:
             if len(self.current_deck) == 0:
                 self.shuffle()
             choice = random.choice(self.current_deck)
+            print(choice.__dict__)
             if choice.is_rolling:
                 modifiers.append(choice)
             else:
@@ -216,7 +219,7 @@ class Deck:
 
     def add_bless(self):
         """Add a bless card to the deck."""
-        self.current_deck.append(cards.Bless_Card())
+        self.current_deck.append(cards.Card("bless", type="bless"))
         return
 
     def remove_bless(self):
@@ -225,11 +228,11 @@ class Deck:
 
     def count_blesses(self):
         """Count the number of bless cards in the deck."""
-        return sum(1 for card in self.current_deck if card.value == "bless")
+        return sum(1 for card in self.current_deck if card.type == "bless")
 
     def add_curse(self):
         """Add a curse card to the deck."""
-        self.current_deck.append(cards.Curse_Card())
+        self.current_deck.append(cards.Card("curse", type="curse"))
         return
 
     def remove_curse(self):
@@ -238,11 +241,11 @@ class Deck:
 
     def count_curses(self):
         """Count the number of curse cards in the deck."""
-        return sum(1 for card in self.current_deck if card.value == "curse")
+        return sum(1 for card in self.current_deck if card.type == "curse")
 
     def add_demerit(self):
         """Add a demerit card to the deck."""
-        self.current_deck.append(cards.Demerit_Card())
+        self.current_deck.append(cards.Card(-1, type="demerit"))
         return
 
     def remove_demerit(self):
@@ -251,8 +254,8 @@ class Deck:
 
     def count_demerits(self):
         """Count the number of bless cards in the deck."""
-        return sum(1 for card in self.current_deck if card.value == "-1" and
-                   card.character_class_image == "images/star.png")
+        return sum(1 for card in (self.current_deck + self.discard)
+                   if card.type == "demerit")
 
     def add_all_perks(self):
         """Temporary method to add all perks to deck for testing."""
@@ -264,12 +267,22 @@ class Deck:
         # add cards required to full_deck
         # remove cards required
         for card in perk.add_cards:
-            self.full_deck.append(card)
+            card.character_class = self.character_class.character_class
+            # print(self.character_class)
+            # print(card.character_class)
+            card.type = 'perk'
+            print(card.type)
+            card.derive_images()
+            self.current_deck.append(card)
         for value in perk.remove_cards:
-            for index, card in enumerate(self.full_deck):
-                if card.element is None and card.status_effect is None:
+            if value == "nightshroud_minus_one_dark":
+                pass
+                # add in the eclipse exception
+                # not sure we want to pull from full_deck
+            for index, card in enumerate(self.current_deck):
+                if card.type == "None":
                     if str(card.value) == str(value):
-                        self.full_deck.pop(index)
+                        self.current_deck.pop(index)
                         break
 
     def needs_shuffling(self):
