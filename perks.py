@@ -7,14 +7,15 @@ Define perks and their methods and data.
 class Perk:
     """Perks that alter decks."""
 
-    def __init__(self, add_cards, remove_cards):
+    def __init__(self, description="", add=[], remove=[]):
         """Initialize attributes."""
         self.add_cards = []
         self.remove_cards = []
-        for card in add_cards:
-            self.add_cards.append(card)
-        for card in remove_cards:
-            self.remove_cards.append(card)
+        self.description = description
+        for card_attribute_set in add:
+            self.add_cards.append(card_attribute_set)
+        for card_attribute_set in remove:
+            self.remove_cards.append(card_attribute_set)
         # print("perk")
         # print(self)
         # print(self.character_class)

@@ -3,7 +3,6 @@
 Define perks for characters.
 """
 from cards import Card
-from cards import Character_Card
 from perks import Perk
 
 
@@ -13,1012 +12,386 @@ class Character_Class:
     def __init__(self, character_class):
         """Initialize attributes."""
         self.character_class = character_class
-        self.character_class_image = self.select_character_class_image()
         self.perks = []
         self.determine_perks()
 
-    def select_character_class_image(self):
-        """Select class image."""
-        character_class_image = "images/{0}.png".format(self.character_class)
-        return character_class_image
-
     def determine_perks(self):
         """Determine what perks the character has access to."""
-        # self.perks.append(
-        #     Perk("sunkeeper",
-        #          [
-        #              Character_Card(1, "sunkeeper", True, None, None),
-        #              Character_Card(1, "sunkeeper", True, None, None)
-        #          ],
-        #          []
-        #          )
-        # )
-        # for perk in all_perks:
-        #     if perk[0] == self.character_class:
-        #         self.perks.append(Perk(perk[0], perk[1], perk[2]))
         class_perks = class_dictionary[self.character_class]
-        # print(class_perks)
         for perk in class_perks:
-            # print(perk)
-            # print(perk[0])
-            # print(perk[1])
-            self.perks.append(Perk(perk[0], perk[1]))
+            self.perks.append(perk)
 
 
-# [add_cards], [remove_cards]
-# for list in all_perks:
-
-# Perk([Character_Card(1, "sunkeeper", True, None, None),
-#                Character_Card(1, "sunkeeper", True, None, None)], [])
-sunkeeper_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Card(0)], [-2]
-    ],
-    [
-        [Card(2)], [0]
-    ],
-    [
-        [Character_Card(1, "sunkeeper", True, None, None),
-         Character_Card(1, "sunkeeper", True, None, None)], []
-    ],
-    [
-        [Character_Card(1, "sunkeeper", True, None, None),
-         Character_Card(1, "sunkeeper", True, None, None)], []
-    ],
-    [
-        [Character_Card(0, "sunkeeper", True, "heal_self1", None),
-         Character_Card(0, "sunkeeper", True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, "sunkeeper", True, "heal_self1", None),
-         Character_Card(0, "sunkeeper", True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, "sunkeeper", True, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, "sunkeeper", True, None, "light"),
-         Character_Card(0, "sunkeeper", True, None, "light")], []
-    ],
-    [
-        [Character_Card(0, "sunkeeper", True, None, "light"),
-         Character_Card(0, "sunkeeper", True, None, "light")], []],
-    [
-        [Character_Card(0, "sunkeeper", True, "shield_self1", None),
-         Character_Card(0, "sunkeeper", True, "shield_self1", None)], []
-    ],
-    [
-        [Card(1), Card(1)], []
-    ],
-    [
-        [], []
-    ],
-]
+# description='', add=[], remove=[]
+# [
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[]),
+#         Perk(description="", add=[], remove=[])
+# ]
 brute_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)],
-        []
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)],
-        []
-    ],
-    [
-        [Character_Card(3, False, None, None)], []
-    ],
-    [
-        [
-            Character_Card(0, True, "push1", None),
-            Character_Card(0, True, "push1", None),
-            Character_Card(0, True, "push1", None)
-        ],
-        []
-    ],
-    [
-        [
-            Character_Card(0, True, "push1", None),
-            Character_Card(0, True, "push1", None),
-            Character_Card(0, True, "push1", None)
-        ],
-        []
-    ],
-    [
-        [Character_Card(0, True, "pierce3", None),
-         Character_Card(0, True, "pierce3", None)
-         ],
-        []
-    ],
-    [
-        [
-            Character_Card(0, True, "stun", None)
-        ], []
-    ],
-    [
-        [Character_Card(0, True, "stun", None)
-         ], []
-    ],
-    [
-        [
-            Character_Card(0, True, "disarm", None),
-            Character_Card(0, True, "muddle", None)
-        ], []
-    ],
-    [
-        [Character_Card(0, True, "target", None)], []
-    ],
-    [
-        [Character_Card(0, True, "target", None)], []
-    ],
-    [
-        [Character_Card(1, True, "shield_self1", None)], []
-    ],
-    [
-        [Character_Card(1, False, None, None)], []
-    ],
+    Perk(description="Remove two -1 cards", remove=[-1, -1]),
+    Perk(description="Replace one -1 card with one +1 card",
+         add=[Card(value=1)], remove=[-1]),
+    Perk(description="Add two +1 cards", add=[Card(value=1), Card(value=1)]),
+    Perk(description="Add two +1 cards", add=[Card(value=1), Card(value=1)]),
+    Perk(description="Add one +3 card", add=[Card(value=3)]),
+    Perk(description="Add 3 rolling Push 1 cards", add=[
+        Card(status_effect="push1", is_rolling=True),
+        Card(status_effect="push1", is_rolling=True),
+        Card(status_effect="push1", is_rolling=True)]),
+    Perk(description="Add 3 rolling Push 1 cards", add=[
+        Card(status_effect="push1", is_rolling=True),
+        Card(status_effect="push1", is_rolling=True),
+        Card(status_effect="push1", is_rolling=True)]),
+    Perk(description="Add two rolling Pierce 3 cards", add=[
+        Card(is_rolling=True, status_effect="pierce3"),
+        Card(is_rolling=True, status_effect="pierce3")]),
+    Perk(description="Add one rolling Stun card", add=[
+        Card(is_rolling=True, status_effect="stun")]),
+    Perk(description="Add one rolling Stun card", add=[
+        Card(is_rolling=True, status_effect="stun")]),
+    Perk(description="Add one rolling Disarm card and one rolling Muddle card",
+         add=[Card(is_rolling=True, status_effect="disarm"),
+              Card(is_rolling=True, status_effect="muddle")]),
+    Perk(description="Add one rolling Add Target card", add=[
+        Card(is_rolling=True, status_effect="target")]),
+    Perk(description="Add one rolling Add Target card", add=[
+        Card(is_rolling=True, status_effect="target")]),
+    Perk(description="Add one +1 Shield 1, Self card", add=[
+        Card(value=1, status_effect="shield_self1")]),
+    Perk(description="Ignore negative item effects and add one +1 card",
+         add=[Card(value=1)], remove=[]),
 ]
+
 tinkerer_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [Character_Card(0, False, None, None)], [-2]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ],
-    [
-        [Character_Card(3, False, None, None)], []
-    ],
-    [
-        [Character_Card(0, True, None, "fire"),
-         Character_Card(0, True, None, "fire")], []
-    ],
-    [
-        [Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(1, False, "heal_self2", None)], []
-    ],
-    [
-        [Character_Card(1, False, "heal_self2", None)], []
-    ],
-    [
-        [Character_Card(0, False, "target", None)], []
-    ],
-    [
-        [], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Replace one -2 card with one +0 card", add=[], remove=[]),
+    Perk(description="Add two +1 cards", add=[], remove=[]),
+    Perk(description="Add one +3 card", add=[], remove=[]),
+    Perk(description="Add two rolling Fire cards", add=[], remove=[]),
+    Perk(description="Add three rolling Muddle cards", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +1 Heal 2 card", add=[], remove=[]),
+    Perk(description="Add one +1 Heal 2 card", add=[], remove=[]),
+    Perk(description="Add one +0 Add Target card", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
 ]
 spellweaver_perks = [
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ],
-    [
-        [Character_Card(0, False, "stun", None)], []
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(1, False, "curse", None)], []
-    ],
-    [
-        [Character_Card(2, False, None, "fire")], []
-    ],
-    [
-        [Character_Card(2, False, None, "fire")], []
-    ],
-    [
-        [Character_Card(2, False, None, "ice")], []
-    ],
-    [
-        [Character_Card(2, False, None, "ice")], []
-    ],
-    [
-        [Character_Card(0, True, None, "earth"),
-         Character_Card(0, True, None, "wind")], []
-    ],
-    [
-        [Character_Card(0, True, None, "light"),
-         Character_Card(0, True, None, "dark")], []],
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Add two +1 cards", add=[], remove=[]),
+    Perk(description="Add two +1 cards", add=[], remove=[]),
+    Perk(description="Add one +0 Stun card", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +1 Curse card", add=[], remove=[]),
+    Perk(description="Add one +2 Fire card", add=[], remove=[]),
+    Perk(description="Add one +2 Fire card", add=[], remove=[]),
+    Perk(description="Add one +2 Ice card", add=[], remove=[]),
+    Perk(description="Add one +2 Ice card", add=[], remove=[]),
+    Perk(description="Add one rolling Earth card and one rolling Wind card",
+         add=[], remove=[]),
+    Perk(description="Add one rolling Light card and one rolling Dark card",
+         add=[], remove=[])
 ]
 cragheart_perks = [
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, False, None, None),
-         Character_Card(2, False, None, None),
-         Character_Card(-2, False, None, None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(2, False, "muddle", None)], []
-    ],
-    [
-        [Character_Card(2, False, "muddle", None)], []
-    ],
-    [
-        [Character_Card(0, True, "push2", None),
-         Character_Card(0, True, "push2", None)], []
-    ],
-    [
-        [Character_Card(0, True, None, "earth"),
-         Character_Card(0, True, None, "earth")], []
-    ],
-    [
-        [Character_Card(0, True, None, "earth"),
-         Character_Card(0, True, None, "earth")], []
-    ],
-    [
-        [Character_Card(0, True, None, "wind"),
-         Character_Card(0, True, None, "wind")], []
-    ],
-    [
-        [], []
-    ],
-    [
-        [], []
-    ],
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Add one -2 card and two +2 cards", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +2 Muddle card", add=[], remove=[]),
+    Perk(description="Add one +2 Muddle card", add=[], remove=[]),
+    Perk(description="Add two rolling Push 2 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Earth cards", add=[], remove=[]),
+    Perk(description="Add two rolling Earth cards", add=[], remove=[]),
+    Perk(description="Add twor rolling Wind cards", add=[], remove=[]),
+    Perk(description="Ignore negative item effects", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
 ]
 scoundrel_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(0, False, None, None)], [-2]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(0, True, "pierce3", None),
-         Character_Card(0, True, "pierce3", None)], []
-    ],
-    [
-        [Character_Card(0, True, "poison", None),
-         Character_Card(0, True, "poison", None)], []
-    ],
-    [
-        [Character_Card(0, True, "poison", None),
-         Character_Card(0, True, "poison", None)], []
-    ],
-    [
-        [Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [Character_Card(0, True, "invisible", None)], []
-    ],
-    [
-        [], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one -2 card with one +0 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Pierce 3 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Poison cards", add=[], remove=[]),
+    Perk(description="Add two rolling Poison cards", add=[], remove=[]),
+    Perk(description="Add two rolling Muddle cards", add=[], remove=[]),
+    Perk(description="Add one rolling Invisible card", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
 ]
 mindtheif_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(2, False, None, None),
-         Character_Card(2, False, None, None)], [1, 1]
-    ],
-    [
-        [Character_Card(0, False, None, None)], [-2]
-    ],
-    [
-        [Character_Card(2, False, None, "ice")], []
-    ],
-    [
-        [Character_Card(2, False, None, "ice")], []
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(0, True, "pull1", None),
-         Character_Card(0, True, "pull1", None),
-         Character_Card(0, True, "pull1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [Character_Card(0, True, "immobilize", None),
-         Character_Card(0, True, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(0, True, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, True, "disarm", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace two +1 cards with two +2 cards", add=[], remove=[]),
+    Perk(description="Replace one -2 card with one +0 card", add=[], remove=[]),
+    Perk(description="Add one +2 Ice card", add=[], remove=[]),
+    Perk(description="Add one +2 Ice card", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add three rolling Pull 1 cards", add=[], remove=[]),
+    Perk(description="Add three rolling Muddle cards", add=[], remove=[]),
+    Perk(description="Add two rolling Immobilize cards", add=[], remove=[]),
+    Perk(description="Add one rolling Stun card", add=[], remove=[]),
+    Perk(description="Add one rolling Disarm card and one rolling Muddle card",
+         add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
+]
+sunkeeper_perks = [
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one -2 card with one +0 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add one rolling Stun card", add=[], remove=[]),
+    Perk(description="Add two rolling Light cards", add=[], remove=[]),
+    Perk(description="Add two rolling Light cards", add=[], remove=[]),
+    Perk(description="Add two rolling Shield 1, Self cards", add=[], remove=[]),
+    Perk(description="Ignore negative item effects and add two +1 cards",
+         add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
 ]
 quartermaster_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [Character_Card(0, True, "pierce3", None),
-         Character_Card(0, True, "pierce3", None)], []
-    ],
-    [
-        [Character_Card(0, True, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, True, "target", None)], []
-    ],
-    [
-        [Character_Card(0, False, "item", None)], []
-    ],
-    [
-        [Character_Card(0, False, "item", None)], []
-    ],
-    [
-        [Character_Card(0, False, "item", None)], []
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add three rolling Muddle cards", add=[], remove=[]),
+    Perk(description="Add two rolling Pierce 3 cards", add=[], remove=[]),
+    Perk(description="Add one rolling Stun card", add=[], remove=[]),
+    Perk(description="Add one rolling Add Target card", add=[], remove=[]),
+    Perk(description="Add one +0 Refresh an Item card", add=[], remove=[]),
+    Perk(description="Add one +0 Refresh an Item card", add=[], remove=[]),
+    Perk(description="Add one +0 Refresh an Item card", add=[], remove=[]),
+    Perk(description="Ignore negative item effects and add two +1 cards",
+         add=[], remove=[])
 ]
 summoner_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [Character_Card(0, False, None, None)], [-2]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, False, None, None)], []
-    ],
-    [
-        [Character_Card(2, False, None, None)], []
-    ],
-    [
-        [Character_Card(0, True, "wound", None),
-         Character_Card(0, True, "wound", None)], []
-    ],
-    [
-        [Character_Card(0, True, "poison", None),
-         Character_Card(0, True, "poison", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, None, "fire"),
-         Character_Card(0, True, None, "wind")], []
-    ],
-    [
-        [Character_Card(0, True, None, "dark"),
-         Character_Card(0, True, None, "earth")], []
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ]
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Replace one -2 card with one +0 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Add one +2 card", add=[], remove=[]),
+    Perk(description="Add one +2 card", add=[], remove=[]),
+    Perk(description="Add two rolling Wound cards", add=[], remove=[]),
+    Perk(description="Add two rolling Poison cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add one rolling Fire card and one rolling Wind card",
+         add=[], remove=[]),
+    Perk(description="Add one rolling Dark card and one rolling Earth card",
+         add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects and add two +1 cards",
+         add=[], remove=[])
 ]
 nightshroud_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(-1, False, None, "dark")], []
-    ],
-    [
-        [Character_Card(-1, False, None, "dark")], []
-    ],
-    [
-        [Character_Card(1, False, None, "dark")],
-        [Character_Card(-1, False, None, "dark")]
-    ],
-    [
-        [Character_Card(1, False, None, "dark")],
-        [Character_Card(-1, False, None, "dark")]
-    ],
-    [
-        [Character_Card(1, False, "invisible", None)], []
-    ],
-    [
-        [Character_Card(1, False, "invisible", None)], []
-    ],
-    [
-        [Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None),
-         Character_Card(0, True, "muddle", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "curse", None),
-         Character_Card(0, True, "curse", None)], []
-    ],
-    [
-        [Character_Card(0, True, "target", None)], []
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ]
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Add one -1 Dark card", add=[], remove=[]),
+    Perk(description="Add one -1 Dark card", add=[], remove=[]),
+    Perk(description="Replace one -1 Dark card with one +1 Dark card",
+         add=[], remove=["nightshroud_minus_one_dark"]),
+    Perk(description="Replace one -1 Dark card with one +1 Dark card",
+         add=[], remove=["nightshroud_minus_one_dark"]),
+    Perk(description="Add one +1 Invisible card", add=[], remove=[]),
+    Perk(description="Add one +1 Invisible card", add=[], remove=[]),
+    Perk(description="Add three rolling Muddle cards", add=[], remove=[]),
+    Perk(description="Add three rolling Muddle cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Curse cards", add=[], remove=[]),
+    Perk(description="Add one rolling Add Target card", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects and add two +1 cards",
+         add=[], remove=[])
 ]
 plagueherald_perks = [
-    [
-        [Character_Card(0, False, None, None)], [-2]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ],
-    [
-        [Character_Card(1, False, None, "wind")], []
-    ],
-    [
-        [Character_Card(1, False, None, "wind")], []
-    ],
-    [
-        [Character_Card(1, False, None, "wind")], []
-    ],
-    [
-        [Character_Card(0, True, "poison", None),
-         Character_Card(0, True, "poison", None),
-         Character_Card(0, True, "poison", None)], []
-    ],
-    [
-        [Character_Card(0, True, "curse", None),
-         Character_Card(0, True, "curse", None)], []
-    ],
-    [
-        [Character_Card(0, True, "immobilize", None),
-         Character_Card(0, True, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(0, False, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, False, "stun", None)], []
-    ],
-    [
-        [Character_Card(1, False, None, None)], []
-    ],
+    Perk(description="Replace one -2 card with one +0 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add two +1 cards", add=[], remove=[]),
+    Perk(description="Add one +1 Wind card", add=[], remove=[]),
+    Perk(description="Add one +1 Wind card", add=[], remove=[]),
+    Perk(description="Add one +1 Wind card", add=[], remove=[]),
+    Perk(description="Add three rolling Poison cards", add=[], remove=[]),
+    Perk(description="Add two rolling Curse cards", add=[], remove=[]),
+    Perk(description="Add two Immobilize cards", add=[], remove=[]),
+    Perk(description="Add one Stun card", add=[], remove=[]),
+    Perk(description="Add one Stun card", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects and add one +1 card",
+         add=[], remove=[])
 ]
 berserker_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, True, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, True, None, None)], [0]
-    ],
-    [
-        [Character_Card(0, True, "wound", None),
-         Character_Card(0, True, "wound", None)], []
-    ],
-    [
-        [Character_Card(0, True, "wound", None),
-         Character_Card(0, True, "wound", None)], []
-    ],
-    [
-        [Character_Card(0, True, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, True, "stun", None)], []
-    ],
-    [
-        [Character_Card(1, True, "disarm", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(2, False, None, "fire")], []
-    ],
-    [
-        [Character_Card(2, False, None, "fire")], []
-    ]
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one -1 cand with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 cand with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one rolling +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one rolling +2 card", add=[], remove=[]),
+    Perk(description="Add two rolling Wound cards", add=[], remove=[]),
+    Perk(description="Add two rolling Wound cards", add=[], remove=[]),
+    Perk(description="Add one rolling Stun card", add=[], remove=[]),
+    Perk(description="Add one rolling Stun card", add=[], remove=[]),
+    Perk(description="Add one rolling +1 Disarm card", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add one +2 Fire card", add=[], remove=[]),
+    Perk(description="Add one +2 Fire card", add=[], remove=[]),
+    Perk(description="Ignore negative item effects", add=[], remove=[])
 ]
 soothsinger_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-2]
-    ],
-    [
-        [Character_Card(4, False, None, None)], [1, 1]
-    ],
-    [
-        [Character_Card(4, False, None, None)], [1, 1]
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], [0]
-    ],
-    [
-        [Character_Card(1, False, "disarm", None)], [0]
-    ],
-    [
-        [Character_Card(2, False, "wound", None)], [0]
-    ],
-    [
-        [Character_Card(2, False, "poison", None)], [0]
-    ],
-    [
-        [Character_Card(2, False, "curse", None)], [0]
-    ],
-    [
-        [Character_Card(3, False, "muddle", None)], [0]
-    ],
-    [
-        [Character_Card(0, False, "stun", None)], [-1]
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(0, True, "curse", None),
-         Character_Card(0, True, "curse", None)], []
-    ],
-    [
-        [Character_Card(0, True, "curse", None),
-         Character_Card(0, True, "curse", None)], []
-    ]
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove one -2 card", add=[], remove=[]),
+    Perk(description="Replace two +1 cards with one +4 card", add=[], remove=[]),
+    Perk(description="Replace two +1 cards with one +4 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +1 Immobilize card",
+         add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +1 Disarm card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 Wound card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 Poison card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 Curse card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +3 Muddle card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +0 Stun card", add=[], remove=[]),
+    Perk(description="Add three rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Curse cards", add=[], remove=[]),
+    Perk(description="Add two rolling Curse cards", add=[], remove=[]),
 ]
 doomstalker_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], [0, 0]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], [0, 0]
-    ],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], [0, 0]
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(1, True, None, None),
-         Character_Card(1, True, None, None)], []
-    ],
-    [
-        [Character_Card(2, False, "muddle", None)], []
-    ],
-    [
-        [Character_Card(1, False, "poison", None)], []
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(0, False, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, True, "target", None)], []
-    ],
-    [
-        [Character_Card(0, True, "target", None)], []
-    ],
-    [
-        [], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Replace two +0 cards with two +1 cards", add=[], remove=[]),
+    Perk(description="Replace two +0 cards with two +1 cards", add=[], remove=[]),
+    Perk(description="Replace two +0 cards with two +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling +1 cards", add=[], remove=[]),
+    Perk(description="Add one +2 Muddle card", add=[], remove=[]),
+    Perk(description="Add one +1 Poison card", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +0 Stun card", add=[], remove=[]),
+    Perk(description="Add one rolling Add Target card", add=[], remove=[]),
+    Perk(description="Add one rolling Add Target card", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
 ]
 sawbones_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [0, 0, 0, 0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, True, None, None)], []
-    ],
-    [
-        [Character_Card(2, True, None, None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(0, True, "wound", None),
-         Character_Card(0, True, "wound", None)], []
-    ],
-    [
-        [Character_Card(0, True, "wound", None),
-         Character_Card(0, True, "wound", None)], []
-    ],
-    [
-        [Character_Card(0, True, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self3", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self3", None)], []
-    ],
-    [
-        [Character_Card(0, False, "item", None)], []
-    ]
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove four +0 cards", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add one rolling +2 card", add=[], remove=[]),
+    Perk(description="Add one rolling +2 card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add two rolling Wound cards", add=[], remove=[]),
+    Perk(description="Add two rolling Wound cards", add=[], remove=[]),
+    Perk(description="Add one rolling Stun card", add=[], remove=[]),
+    Perk(description="Add one rolling Heal 3 card", add=[], remove=[]),
+    Perk(description="Add one rolling Heal 3 card", add=[], remove=[]),
+    Perk(description="Add one +0 Refresh an Item card", add=[], remove=[])
 ]
 elementalist_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(0, False, None, "fire"),
-         Character_Card(0, False, None, "fire"),
-         Character_Card(0, False, None, "fire")], []
-    ],
-    [
-        [Character_Card(0, False, None, "ice"),
-         Character_Card(0, False, None, "ice"),
-         Character_Card(0, False, None, "ice")], []
-    ],
-    [
-        [Character_Card(0, False, None, "wind"),
-         Character_Card(0, False, None, "wind"),
-         Character_Card(0, False, None, "wind")], []
-    ],
-    [
-        [Character_Card(0, False, None, "earth"),
-         Character_Card(0, False, None, "earth"),
-         Character_Card(0, False, None, "earth")], []
-    ],
-    [
-        [Character_Card(0, False, None, "fire"),
-         Character_Card(0, False, None, "earth")], [0, 0]
-    ],
-    [
-        [Character_Card(0, False, None, "ice"),
-         Character_Card(0, False, None, "wind")], [0, 0]
-    ],
-    [
-        [Character_Card(1, False, "push1", None),
-         Character_Card(1, False, "push1", None)], []
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(0, False, "stun", None)], []
-    ],
-    [
-        [Character_Card(0, False, "target", None)], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add three +0 Fire cards", add=[], remove=[]),
+    Perk(description="Add three +0 Ice cards", add=[], remove=[]),
+    Perk(description="Add three +0 Wind cards", add=[], remove=[]),
+    Perk(description="Add three +0 Earth cards", add=[], remove=[]),
+    Perk(description="Replace two +0 cards with one +0 Fire card and one +0 Earth card", add=[], remove=[]),
+    Perk(description="Replace two +0 cards with one +0 Ice card and one +0 Wind card",
+         add=[], remove=[]),
+    Perk(description="Add two +1 Push 1 cards", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +0 Stun card", add=[], remove=[]),
+    Perk(description="Add one +0 Add Target card", add=[], remove=[])
 ]
 beast_tyrant_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(1, False, None, None)], [-1]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, None)], [0]
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(1, False, "wound", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(1, False, "immobilize", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, None, "earth")], []
-    ],
-    [
-        [], []
-    ],
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 card", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +1 Wound card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add one +1 Immobilize card", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1 cards", add=[], remove=[]),
+    Perk(description="Add two rolling Earth cards", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects", add=[], remove=[])
 ]
 diviner_perks = [
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-1, -1]
-    ],
-    [
-        [], [-2]
-    ],
-    [
-        [Character_Card(3, False, "shield_self1", None)], [1, 1]
-    ],
-    [
-        [Character_Card(3, False, "shield_self1", None)], [1, 1]
-    ],
-    [
-        [Character_Card(1, False, "shield_ally1", None)], [0]
-    ],
-    [
-        [Character_Card(2, False, None, "dark")], [0]
-    ],
-    [
-        [Character_Card(2, False, None, "light")], [0]
-    ],
-    [
-        [Character_Card(3, False, "muddle", None)], [0]
-    ],
-    [
-        [Character_Card(3, False, "curse", None)], [0]
-    ],
-    [
-        [Character_Card(2, False, "regenerate", None)], [0]
-    ],
-    [
-        [Character_Card(1, False, "heal_ally2", None)], [-1]
-    ],
-    [
-        [Character_Card(0, True, "heal_self1", None),
-         Character_Card(0, True, "heal_self1", None)], []
-    ],
-    [
-        [Character_Card(0, True, "curse", None),
-         Character_Card(0, True, "curse", None)], []],
-    [
-        [Character_Card(1, False, None, None),
-         Character_Card(1, False, None, None)], []
-    ]
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove two -1 cards", add=[], remove=[]),
+    Perk(description="Remove one -2 card", add=[], remove=[]),
+    Perk(description="Replace two +1 cards with one +3 Shield 1, Self card",
+         add=[], remove=[]),
+    Perk(description="Replace two +1 cards with one +3 Shield 1, Self card",
+         add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +1 Shiled 1, Affect any Ally card",
+         add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 Dark card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 Light card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +3 Muddle card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +3 Curse card", add=[], remove=[]),
+    Perk(description="Replace one +0 card with one +2 Regenerate, Self card",
+         add=[], remove=[]),
+    Perk(description="Replace one -1 card with one +1 Heal 2, Affect any Ally card",
+         add=[], remove=[]),
+    Perk(description="Add two rolling Heal 1, Self cards", add=[], remove=[]),
+    Perk(description="Add two rolling Curse cards", add=[], remove=[]),
+    Perk(description="Ignore negative scenario effects and add two +1 cards",
+         add=[], remove=[])
 ]
 class_dictionary = {
-    'sunkeeper': sunkeeper_perks,
     'brute': brute_perks,
     'tinkerer': tinkerer_perks,
     'spellweaver': spellweaver_perks,
     'cragheart': cragheart_perks,
     'scoundrel': scoundrel_perks,
     'mindtheif': mindtheif_perks,
+    'sunkeeper': sunkeeper_perks,
     'quartermaster': quartermaster_perks,
     'summoner': summoner_perks,
     'nightshroud': nightshroud_perks,
