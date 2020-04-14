@@ -27,8 +27,9 @@ class TopButtons(RelativeLayout):
     def update(self):
         """Update all top buttons."""
         CurseButton.update(self.children[2])
-        BlessButton.update(self.children[3])
-        ShuffleButton.update(self.children[4])
+        DemeritButton.update(self.children[3])
+        BlessButton.update(self.children[4])
+        ShuffleButton.update(self.children[5])
 
 
 class DrawButton(Button):
@@ -90,7 +91,7 @@ class DemeritButton(Button):
         """Change the label number to number of curses in deck."""
         self.text = str(myDeck.count_demerits())
 
-    def add_curse(self):
+    def add_demerit(self):
         """Add a demerit card to the deck."""
         myDeck.add_demerit()
         self.update()
@@ -409,7 +410,7 @@ class DeckApp(App):
         return MainDeckScreen()
 
 
-myDeck = deck.Deck("deck_name", "sunkeeper")
+myDeck = deck.Deck("deck_name", "brute")
 
 
 if __name__ == '__main__':
