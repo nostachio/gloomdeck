@@ -214,7 +214,7 @@ class DrawResult(GridLayout):
         self.clear_widgets()
         # widgets = []
         # number
-        card = Image(source=('images/ability_card.jpg'))
+        card = Image(source=('images/ability_card.png'))
         attack_icon = Image(
             source=('images/attack_white.png')
         )
