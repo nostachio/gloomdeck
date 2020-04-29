@@ -249,7 +249,10 @@ class DrawResult(GridLayout):
             attack = Label(
                 text=(str(myDeck.last_draw.attack))
             )
-            add = Label(text='+')
+            if myDeck.last_draw.attack >= 0:
+                add = Label(text='+')
+            else:
+                add = Label(text='')
             self.add_widget(card)
             self.add_widget(add)
             self.add_widget(attack)
