@@ -14,10 +14,11 @@ from kivy.properties import NumericProperty
 from kivy.properties import DictProperty
 # from kivy.properties import ListProperty
 from kivy.core.window import Window
+from kivy.uix.screenmanager import ScreenManager, Screen
 Window.size = (360, 780)
 
 
-class MainDeckScreen(RelativeLayout):
+class MainDeckScreen(Screen):
     """Create the deck screen."""
 
 
@@ -405,16 +406,39 @@ class Discard(RelativeLayout):
                     self.add_widget(rolling)
 
 
+class CharacterScreen(Screen):
+    """Screen for selecting character class."""
+
+    pass
+
+
+class DeckContentScreen(Screen):
+    """Screen for showing what remains in the deck."""
+
+    pass
+
+
+class PerkSelectionScreen(Screen):
+    """Screen for selecting perks."""
+
+    pass
+
+
 class DeckApp(App):
     """Make the main window."""
 
     def build(self):
         """Give deck screen to app."""
-        return MainDeckScreen()
+        screenmanager = ScreenManager()
+        screenmanager.add_widget(CharacterScreen(name="character"))
+        screenmanager.add_widget(DeckContentScreen(name="deck_content"))
+        screenmanager.add_widget(PerkSelectionScreen(name="perk_selection"))
+        screenmanager.add_widget(MainDeckScreen(name="main"))
+        screenmanager.current = 'main'
+        return screenmanager
 
 
 myDeck = deck.Deck("deck_name", "brute")
-
 
 if __name__ == '__main__':
     DeckApp().run()
