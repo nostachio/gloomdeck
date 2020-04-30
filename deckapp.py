@@ -70,6 +70,11 @@ class BlessButton(Button):
         self.update()
         print("bless added")
 
+    def remove_bless(self):
+        """Remove bless from deck."""
+        myDeck.remove_bless()
+        self.update()
+
 
 class CurseButton(Button):
     """Class for curse button."""
@@ -82,7 +87,12 @@ class CurseButton(Button):
         """Add a curse card to the deck."""
         myDeck.add_curse()
         self.update()
-        print("curse added")
+        # print("curse added")
+
+    def remove_curse(self):
+        """Remove curse from deck."""
+        myDeck.remove_curse()
+        self.update()
 
 
 class DemeritButton(Button):

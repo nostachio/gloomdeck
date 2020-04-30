@@ -219,12 +219,15 @@ class Deck:
 
     def add_bless(self):
         """Add a bless card to the deck."""
-        self.current_deck.append(cards.Card("bless", type="bless"))
+        self.current_deck.append(cards.Card(value="bless", type="bless"))
         return
 
     def remove_bless(self):
         """Remove a bless card from the deck."""
-        pass
+        for index, card in enumerate(self.current_deck):
+            if card.type == "bless":
+                self.current_deck.pop(index)
+                break
 
     def count_blesses(self):
         """Count the number of bless cards in the deck."""
@@ -232,12 +235,15 @@ class Deck:
 
     def add_curse(self):
         """Add a curse card to the deck."""
-        self.current_deck.append(cards.Card("curse", type="curse"))
+        self.current_deck.append(cards.Card(value="curse", type="curse"))
         return
 
     def remove_curse(self):
         """Remove a curse card from the deck."""
-        pass
+        for index, card in enumerate(self.current_deck):
+            if card.type == "curse":
+                self.current_deck.pop(index)
+                break
 
     def count_curses(self):
         """Count the number of curse cards in the deck."""
