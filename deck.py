@@ -184,6 +184,20 @@ class Deck:
         self.demerit_count = 0
         # last_draw will be [type_of_draw, [cards], [modifiers]]
         self.last_draw = None
+        # self.add_all_perks()
+
+    def set_character(self, character):
+        """Change character for deck."""
+        self.discard = []
+        self.current_deck = []
+        self.standard_deck = []
+        for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
+                      -1, -1, -2, "miss"]:
+            self.standard_deck.append(cards.Card(value=value))
+        self.current_deck = self.standard_deck
+        self.active_perks = []
+        self.character_class = characters.Character_Class(character)
+        self.available_perks = self.character_class.perks
         self.add_all_perks()
 
     def shuffle(self):

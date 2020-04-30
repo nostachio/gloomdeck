@@ -4,6 +4,16 @@
     id: main_layout
     size_hint_x: 0.9
     pos_hint: {'center_x': 0.5}
+    CharacterSelectButton:
+        size_hint_x: 0.1
+        size_hint_y: 0.1
+        pos_hint: {'center_x': 0.05, 'center_y': 0.95}
+        on_press: root.manager.current = 'character'
+    PerkSelectButton:
+        size_hint_x: 0.1
+        size_hint_y: 0.1
+        pos_hint: {'center_x': 0.95, 'center_y': 0.95}
+        on_press: root.manager.current = 'perk_selection'
     Deck:
         size_hint_x: 1
         size_hint_y: 0.3
@@ -31,7 +41,8 @@
         size_hint_x: 1
         size_hint_y: 0.15
         pos_hint: {'center_x': 0.5, 'center_y': 0.08}
-DrawResult:
+    DrawResult:
+
 #     cols: root.my_columns
     # Label:
     
@@ -320,5 +331,87 @@ DrawResult:
     Label:
         text: "perk_selection"
 <CharacterScreen>:
-    Label:
-        text: "character"
+<CharacterButton>:
+    # on_release: app.root.screenmanager.ScreenManager.current = 'main'
+    # on_release: print([type(widget) for widget in app.root.walk(loopback=True)])
+<CharacterLayout>:
+    cols: 4
+<CharacterScreen>:
+    CharacterLayout:
+        CharacterButton:
+            background_normal: 'images/brute.png'
+            on_press: self.select_character('brute')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/tinkerer.png'
+            on_press: self.select_character('tinkerer')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/spellweaver.png'
+            on_press: self.select_character('spellweaver')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/cragheart.png'
+            on_press: self.select_character('cragheart')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/scoundrel.png'
+            on_press: self.select_character('scoundrel')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/mindtheif.png'
+            on_press: self.select_character('mindtheif')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/sunkeeper.png'
+            on_press: self.select_character('sunkeeper')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/quartermaster.png'
+            on_press: self.select_character('quartermaster')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/summoner.png'
+            on_press: self.select_character('summoner')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/nightshroud.png'
+            on_press: self.select_character('nightshroud')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/plagueherald.png'
+            on_press: self.select_character('plagueherald')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/berserker.png'
+            on_press: self.select_character('berserker')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/soothsinger.png'
+            on_press: self.select_character('soothsinger')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/doomstalker.png'
+            on_press: self.select_character('doomstalker')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/sawbones.png'
+            on_press: self.select_character('sawbones')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/elementalist.png'
+            on_press: self.select_character('elementalist')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/beast_tyrant.png'
+            on_press: self.select_character('beast_tyrant')
+            on_release: root.manager.current = 'main'
+        CharacterButton:
+            background_normal: 'images/diviner.png'
+            on_press: self.select_character('diviner')
+            on_release: root.manager.current = 'main'
+<CharacterSelectButton>:
+<PerkLayout>:
+    cols: 2
+    rows: 15
+<PerkSelectButton>:

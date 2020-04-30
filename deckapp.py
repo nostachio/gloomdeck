@@ -9,13 +9,17 @@ from kivy.uix.button import Button
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 import deck
+# from characters import character_list
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.properties import DictProperty
 # from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
+# from kivy.uix.dropdown import DropDown
 Window.size = (360, 780)
+
+myDeck = deck.Deck("deck_name", "brute")
 
 
 class MainDeckScreen(Screen):
@@ -39,10 +43,10 @@ class DrawButton(Button):
     def draw(self, type_of_draw):
         """Draw cards."""
         myDeck.draw(type_of_draw)
-        Discard.update(self.parent.parent.children[1])
-        DiscardHistory.update_discard(self.parent.parent.children[0])
-        DrawResult.update(self.parent.parent.children[2])
-        TopButtons.update(self.parent.parent.children[3])
+        Discard.update(self.parent.parent.children[2])
+        DiscardHistory.update_discard(self.parent.parent.children[1])
+        DrawResult.update(self.parent.parent.children[3])
+        TopButtons.update(self.parent.parent.children[4])
 
 
 class DisadvantageButton(DrawButton):
@@ -127,8 +131,8 @@ class ShuffleButton(Button):
     def shuffle(self):
         """Shuffle the deck."""
         myDeck.shuffle()
-        DiscardHistory.update_discard(self.parent.parent.children[0])
-        TopButtons.update(self.parent.parent.children[3])
+        DiscardHistory.update_discard(self.parent.parent.children[1])
+        TopButtons.update(self.parent.parent.children[4])
 
 
 class DiscardHistory(RelativeLayout):
@@ -416,22 +420,54 @@ class Discard(RelativeLayout):
                     self.add_widget(rolling)
 
 
+class CharacterSelectButton(Button):
+    """Button to open CharacterDropdown."""
+
+    character_image = StringProperty('images/null.png')
+
+    # def open_dropdown(self):
+    #     """Open the dropdown menu."""
+    #     dropdown.open
+
+    def update(self):
+        """Set button image to currently selected character."""
+        self.character_image = myDeck.character_class.image
+
+
+# class CharacterDropdown(DropDown):
+#     """Dropdown to select character class."""
+
+
+class CharacterButton(Button):
+    """Individual character buttons fir the CharacterDropdown."""
+
+    def select_character(self, character):
+        """Set character."""
+        myDeck.set_character(character)
+
+
+class CharacterLayout(GridLayout):
+    """Layout for character selection screen."""
+
+
 class CharacterScreen(Screen):
     """Screen for selecting character class."""
-
-    pass
 
 
 class DeckContentScreen(Screen):
     """Screen for showing what remains in the deck."""
 
-    pass
+
+class PerkSelectButton(Button):
+    """Button for selecting perks."""
+
+
+class PerkLayout(GridLayout):
+    """Layout for perk selection."""
 
 
 class PerkSelectionScreen(Screen):
     """Screen for selecting perks."""
-
-    pass
 
 
 class DeckApp(App):
@@ -448,7 +484,16 @@ class DeckApp(App):
         return screenmanager
 
 
-myDeck = deck.Deck("deck_name", "brute")
+# dropdown = CharacterDropdown()
+# for c in character_list:
+#     print(c)
+#     character_button = CharacterButton(
+#         background_normal="images/{0}.png".format(c))
+#     character_button.bind(on_release=lambda c: myDeck.set_character(c))
+#     dropdown.add_widget(character_button)
+# character_select_button = CharacterSelectButton()
+# character_select_button.bind(on_press=dropdown.open)
+# MainDeckScreen.add_widget(character_select_button)
 
 if __name__ == '__main__':
     DeckApp().run()
