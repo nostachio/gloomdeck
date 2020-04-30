@@ -5,6 +5,27 @@ Define perks for characters.
 from cards import Card
 from perks import Perk
 
+character_list = [
+    'brute',
+    'tinkerer',
+    'spellweaver',
+    'cragheart',
+    'scoundrel',
+    'mindtheif',
+    'sunkeeper',
+    'quartermaster',
+    'summoner',
+    'nightshroud',
+    'plagueherald',
+    'berserker',
+    'soothsinger',
+    'doomstalker',
+    'sawbones',
+    'elementalist',
+    'beast_tyrant',
+    'diviner',
+]
+
 
 class Character_Class:
     """Character_Class definition."""
@@ -12,6 +33,7 @@ class Character_Class:
     def __init__(self, character_class):
         """Initialize attributes."""
         self.character_class = character_class
+        self.image = "images/{0}.png".format(character_class)
         self.perks = []
         self.determine_perks()
 
