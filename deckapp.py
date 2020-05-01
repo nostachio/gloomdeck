@@ -520,10 +520,10 @@ class PerkSelectionScreen(Screen):
             perk_text = PerkLabel(text=item.description)
             # add widgets
             layout.add_widget(perk_text)
-        back_button = ReturnToMainScreenButton(size_hint_x=.2)
-        layout.add_widget(back_button)
-        return_label = PerkLabel(text="Back to Main Screen")
-        layout.add_widget(return_label)
+        back_button = ReturnToMainScreenButton()
+        self.add_widget(back_button)
+        # return_label = PerkLabel(text="Back to Main Screen")
+        # layout.add_widget(return_label)
         self.add_widget(layout)
 
 

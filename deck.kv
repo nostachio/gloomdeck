@@ -332,6 +332,11 @@
         text: "deck_content"
 <PerkSelectionScreen>:
     on_enter: self.populate()
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'images/perk_sheet.png'
 <CharacterScreen>:
 <CharacterButton>:
     # on_release: app.root.screenmanager.ScreenManager.current = 'main'
@@ -416,19 +421,27 @@
     background_normal: self.character_image
     height: self.width
 <ReturnToMainScreenButton>:
+    pos_hint: {'center_x': .5, 'center_y': .03}
+    size_hint_x: .1
+    size_hint_y: None
+    height: self.width
+    background_normal: 'images/pull.png'
     on_press: self.apply_perks()
-    on_release: self.parent.parent.manager.current = 'main'
+    on_release: self.parent.manager.current = 'main'
 <PerkSelectScreenButton>:
     background_normal: 'images/perk_button.png'
     background_disabled_normal: 'images/null.png'
     disabled: self.is_disabled
 <PerkLayout>:
     id: perk_layout_widget
+    size_hint_y: .8
+    pos_hint: {'center_y': .5}
     cols: 2
-    rows: 16
+    rows: 15
 <PerkSelectCheckbox>:
     perk_index: self.perk_index
     size_hint_x: .2
 <PerkLabel>:
     size_hint_x: .8
     text_size: self.width, None
+    color: 0, 0, 0, 1
