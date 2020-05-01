@@ -424,7 +424,7 @@ class Discard(RelativeLayout):
 class CharacterSelectButton(Button):
     """Button to open CharacterDropdown."""
 
-    character_image = StringProperty('images/null.png')
+    character_image = StringProperty('images/character_select.png')
 
     # def open_dropdown(self):
     #     """Open the dropdown menu."""

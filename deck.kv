@@ -6,7 +6,7 @@
     pos_hint: {'center_x': 0.5}
     CharacterSelectButton:
         size_hint_x: 0.1
-        size_hint_y: 0.1
+        size_hint_y: None
         pos_hint: {'center_x': 0.05, 'center_y': 0.95}
         on_press: root.manager.current = 'character'
     PerkSelectScreenButton:
@@ -410,6 +410,8 @@
             on_press: self.select_character('diviner')
             on_release: root.manager.current = 'main'
 <CharacterSelectButton>:
+    background_normal: self.character_image
+    height: self.width
 <ReturnToMainScreenButton>:
     on_press: self.apply_perks()
     on_release: self.parent.parent.manager.current = 'main'
