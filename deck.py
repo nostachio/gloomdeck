@@ -3,263 +3,323 @@
 Class for Decks.
 """
 import random
+import cards
+import characters
 
 
-class Card:
-    """Attack modifier card with only a numeric value or miss or double."""
+class Last_Draw:
+    """Holds the cards for a draw."""
 
-    def __init__(self, value):
+    def __init__(self, draw_type, cards, modifiers):
         """Initialize attributes."""
-        self.value = str(value)
-        self.is_rolling = False
-        self.character_class = None
-        self.status_effect = None
-        self.element = None
-        self.main_image = self.select_main_image()
+        self.draw_type = draw_type
+        self.double_damage = False
+        self.no_damage = False
+        self.cards = []
+        for card in cards:
+            self.cards.append(card)
+        self.modifiers = []
+        for modifier in modifiers:
+            self.modifiers.append(modifier)
+        self.attack = self.attack_result()
+        self.status_effects = self.status_effect_result()
+        self.elements = self.elements_result()
+        # print(self.status_effects)
 
-    def get_value(self):
-        """Return string of value."""
-        return self.value
-
-    def get_is_rolling(self):
-        """Return boolean of is_rolling."""
-        return self.is_rolling
-
-    def get_status_effect(self):
-        """Return string of status_effect."""
-        return self.status_effect
-
-    def select_main_image(self):
-        """Add corresponding image to card."""
-        main_image = "images/{0}.png".format(self.value)
-        return main_image
-
-    def is_this_card_better_than_me(self, card_to_compare):
-        """Return if the card is better, worse, or similar."""
-        am_i_better = None
-        if self.value == "miss" or self.value == "curse":
-            am_i_better = False
-        elif card_to_compare.value == "miss" or\
-                card_to_compare.value == "curse":
-            am_i_better = True
-        else:
-            if self.value < card_to_compare.value:
-                am_i_better = False
-            elif self.value == card_to_compare.value:
-                # compare status
-                if self.status_effect is None and\
-                        card_to_compare.status_effect is not None:
-                    am_i_better = False
-                elif self.status_effect is not None and\
-                        card_to_compare.status_effect is not None:
-                    # then compare elements
-                    if self.element is None and\
-                            card_to_compare.element is not None:
-                        am_i_better = False
-                    elif self.element is not None\
-                            and card_to_compare.element is None:
-                        am_i_better = True
-                    else:
-                        # make this player's choice
-                        am_i_better = None
-                else:
-                    am_i_better = True
+    def attack_result(self):
+        """Add up the attack modifiers."""
+        attack_values = []
+        attack_sum = 0
+        if self.draw_type == "simple" or (self.draw_type == "advantage"
+                                          and len(self.cards) == 1):
+            for card in (self.cards + self.modifiers):
+                attack_values.append(card.value)
+        elif self.draw_type == "advantage":
+            # append better card.  no modifiers will be present
+            card_set = self.cards[0].card_comparison(self.cards[1])
+            attack_values.append(card_set['better_card'].value)
+        else:  # disadvantage
+            if len(self.cards) == 2:
+                card_set = self.cards[0].card_comparison(self.cards[1])
+                attack_values.append(card_set['worse_card'].value)
             else:
-                am_i_better = True
-        return am_i_better
+                attack_values.append(self.cards[0].value)
+        for value in attack_values:
+            if value == "2x" or value == "bless":
+                self.double_damage = True
+            elif value == "miss" or value == "curse":
+                self.no_damage = True
+            else:
+                attack_sum += int(value)
+        total_attack = attack_sum
+        return total_attack
 
+    def status_effect_result(self):
+        """Combine all status effects."""
+        status_effect_list = []
+        status_effects = {
+            'stun': False,
+            'immobilize': False,
+            'disarm': False,
+            'wound': False,
+            'muddle': False,
+            'poison': False,
+            'strengthen': False,
+            'invisible': False,
+            'regenerate': False,
+            'push1': 0,
+            'push2': 0,
+            'push_total': 0,
+            'pull1': 0,
+            'pull_total': 0,
+            'pierce3': 0,
+            'pierce_total': 0,
+            'target': 0,
+            'target_total': 0,
+            'heal_self1': 0,
+            'heal_self2': 0,
+            'heal_self3': 0,
+            'heal_self_total': 0,
+            'heal_ally2': 0,
+            'heal_ally_total': 0,
+            'shield_self1': 0,
+            'shield_self_total': 0,
+            'shield_ally1': 0,
+            'shield_ally_total': 0,
+            'curse': 0,
+            'item': False
+        }
+        if self.draw_type == "simple" or (self.draw_type == "advantage"
+                                          and len(self.cards) == 1):
+            for card in (self.cards + self.modifiers):
+                status_effect_list.append(card.status_effect)
+        elif self.draw_type == "advantage":
+            # append better card.  no modifiers will be present
+            card_set = self.cards[0].card_comparison(self.cards[1])
+            status_effect_list.append(card_set['better_card'].status_effect)
+        else:  # disadvantage
+            if len(self.cards) == 2:
+                card_set = self.cards[0].card_comparison(self.cards[1])
+                status_effect_list.append(card_set['worse_card'].status_effect)
+            else:
+                status_effect_list.append(self.cards[0].status_effect)
+        for effect in status_effect_list:
+            if effect in ['push1', 'push2', 'pull1', 'pierce3', 'target',
+                          'heal_self1', 'heal_self2', 'heal_self3',
+                          'heal_ally2', 'shield_self1', 'shield_ally1',
+                          'curse']:
+                status_effects['{0}'.format(effect)] += 1
+            else:
+                status_effects['{0}'.format(effect)] = True
+        status_effects['push_total'] =\
+            ((1 * status_effects['push1'])
+             + (2 * status_effects['push2']))
+        status_effects['pull_total'] =\
+            (1 * status_effects['pull1'])
+        status_effects['pierce_total'] =\
+            (3 * status_effects['pierce3'])
+        status_effects['target_total'] =\
+            (1 * status_effects['target'])
+        status_effects['heal_self_total'] = (
+            (1 * status_effects['heal_self1'])
+            + (2 * status_effects['heal_self2'])
+            + (3 * status_effects['heal_self3']))
+        status_effects['heal_ally_total'] =\
+            (2 * status_effects['heal_ally2'])
+        status_effects['shield_self_total'] =\
+            (1 * status_effects['shield_self1'])
+        status_effects['shield_ally_total'] =\
+            (1 * status_effects['shield_ally1'])
+        status_effects.pop('None', None)
+        return status_effects
 
-class Character_Card(Card):
-    """Cards added from perks."""
-
-    def __init__(self, value, character_class,
-                 is_rolling, status_effect, element):
-        """Initialize attributes."""
-        self.value = value
-        self.is_rolling = is_rolling
-        self.character_class = character_class
-        self.status_effect = status_effect
-        self.element = element
-        self.main_image = self.select_main_image()
-        self.status_effect_image = self.select_status_effect_image(
-            status_effect)
-        self.element_image = self.select_element_image(element)
-
-    def select_status_effect_image(status_effect):
-        """Pick image for status effect."""
-        if status_effect == "stun":
-            image = "images/"
-        if status_effect == "immobilize":
-            image = "images/"
-        if status_effect == "disarm":
-            image = "images/"
-        if status_effect == "wound":
-            image = "images/"
-        if status_effect == "muddle":
-            image = "images/"
-        if status_effect == "poison":
-            image = "images/"
-        if status_effect == "strengthen":
-            image = "images/"
-        if status_effect == "invisible":
-            image = "images/"
-        if status_effect == "regenerate":
-            image = "images/"
-        return image
-
-    def select_element_image(element):
-        """Get the image for the element effect."""
-        if element == "air":
-            image = "images/"
-        if element == "earth":
-            image = "images/"
-        if element == "fire":
-            image = "images/"
-        if element == "water":
-            image = "images/"
-        if element == "light":
-            image = "images/"
-        if element == "dark":
-            image = "images/"
-        if element == "any":
-            image = "images/"
-        return image
-
-
-class Bless_Card(Card):
-    """Bless Card."""
-
-    def __init__(self):
-        """Initialize attributes."""
-        self.value = "bless"
-        self.is_rolling = False
-        self.character_class = None
-        self.status_effect = None
-        self.element = None
-        self.main_image = self.select_main_image()
-
-
-class Curse_Card(Card):
-    """Curse Card."""
-
-    def __init__(self):
-        """Initialize attributes."""
-        self.value = "curse"
-        self.is_rolling = False
-        self.character_class = None
-        self.status_effect = None
-        self.element = None
-        self.main_image = self.select_main_image()
-
-
-class Perk:
-    """Perks that alter decks."""
-
-    def __init__(self, add_cards, remove_cards):
-        """Initialize attributes."""
-        pass
+    def elements_result(self):
+        """Define result of last draw."""
+        elements = {
+            'light': False,
+            'dark': False,
+            'fire': False,
+            'ice': False,
+            'earth': False,
+            'wind': False
+        }
+        if self.draw_type == "simple" or (self.draw_type == "advantage"
+                                          and len(self.cards) == 1):
+            for card in (self.cards + self.modifiers):
+                elements[card.element] = True
+        elif self.draw_type == "advantage":
+            # append better card.  no modifiers will be present
+            card_set = self.cards[0].card_comparison(self.cards[1])
+            elements[card_set['better_card'].element] = True
+        else:  # disadvantage
+            if len(self.cards) == 2:
+                card_set = self.cards[0].card_comparison(self.cards[1])
+                elements[card_set['worse_card'].element] = True
+            else:
+                elements[self.cards[0].element] = True
+        elements.pop(None, None)
+        return elements
 
 
 class Deck:
     """A deck that can be modified."""
 
-    def __init__(self, name, character_class):
+    def __init__(self, name):
         """Initialize attributes."""
         self.name = name
-        self.full_deck = []
-        for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
-                      -1, -1, -2, "miss"]:
-            self.full_deck.append(Card(value))
-        self.current_deck = self.full_deck
+        self.character_class = None
+        # self.character_class = characters.Character_Class(character_class)
+        self.current_deck = []
         self.discard = []
-        self.active_perks = []
         self.available_perks = []
+        self.bless_count = 0
+        self.curse_count = 0
+        self.demerit = 0
+        self.demerit_count = 0
+        self.last_draw = None
+        self.initialize_deck()
+
+    def set_character(self, character):
+        """Change character for deck."""
+        self.discard = []
+        self.initialize_deck()
+        self.active_perks = []
+        self.character_class = characters.Character_Class(character)
+        self.available_perks = self.character_class.perks
+        self.add_all_perks()
 
     def shuffle(self):
         """Shuffle deck."""
         for card in self.discard:
-            if card.value == "bless" or card.value == "curse":
+            if card.type == "bless" or card.type == "curse":
                 self.discard.remove(card)
         self.current_deck = self.current_deck + self.discard
         self.discard = []
         return
 
-    def draw(self):
+    def draw(self, type_of_draw):
         """Draw a card normally."""
-        if len(self.current_deck) == 0:
-            self.shuffle()
-        choice = random.choice(self.current_deck)
-        self.current_deck.remove(choice)
-        self.discard.append(choice)
-        return choice
-
-    def draw_with_advantage(self):
-        """Draw cards with advantage."""
-        # randomly select two Cards
-        card_list = []
-        rolling_modifiers = []
-        is_better = None
-        while len(card_list) < 1 or\
-                (len(card_list) + len(rolling_modifiers) < 2):
-            this_card = self.draw()
-            if not this_card.get_is_rolling():
-                card_list.append(this_card)
+        cards = []
+        modifiers = []
+        if type_of_draw == "simple":
+            minimum_cards = 1
+        else:
+            minimum_cards = 2
+        while len(cards) == 0 or\
+                (len(cards) + len(modifiers)) < minimum_cards:
+            if len(self.current_deck) == 0:
+                self.shuffle()
+            choice = random.choice(self.current_deck)
+            print(choice.__dict__)
+            if choice.is_rolling:
+                modifiers.append(choice)
             else:
-                rolling_modifiers.append(this_card)
-        if len(card_list) == 1:
-            is_better = True
-        if len(card_list) == 2:
-            is_better = card_list[0].is_this_card_better_than_me(card_list[1])
-        return_list = [card_list, is_better, rolling_modifiers]
-        return return_list
-
-    def draw_with_disadvantage(self):
-        """Draw cards with disadvantage."""
-        card_list = []
-        pull_discard = []
-        is_better = None
-        while (len(card_list) + len(pull_discard) < 2) or len(card_list) < 1:
-            this_card = self.draw()
-            if not this_card.get_is_rolling():
-                card_list.append(this_card)
-            else:
-                pull_discard.append(this_card)
-        if len(card_list) == 1:
-            is_better = True
-        if len(card_list) == 2:
-            is_better = card_list[0].is_this_card_better_than_me(card_list[1])
-        return_list = [card_list, is_better, pull_discard]
-        return return_list
+                cards.append(choice)
+            self.current_deck.remove(choice)
+            self.discard.append(choice)
+        self.last_draw = Last_Draw(type_of_draw, cards, modifiers)
 
     def add_bless(self):
         """Add a bless card to the deck."""
-        self.current_deck.append(Bless_Card())
+        self.current_deck.append(cards.Card(value="bless", type="bless"))
         return
 
     def remove_bless(self):
         """Remove a bless card from the deck."""
-        pass
+        for index, card in enumerate(self.current_deck):
+            if card.type == "bless":
+                self.current_deck.pop(index)
+                break
+
+    def count_blesses(self):
+        """Count the number of bless cards in the deck."""
+        return sum(1 for card in self.current_deck if card.type == "bless")
 
     def add_curse(self):
         """Add a curse card to the deck."""
-        self.current_deck.append(Curse_Card())
+        self.current_deck.append(cards.Card(value="curse", type="curse"))
         return
 
     def remove_curse(self):
         """Remove a curse card from the deck."""
-        pass
+        for index, card in enumerate(self.current_deck):
+            if card.type == "curse":
+                self.current_deck.pop(index)
+                break
+
+    def count_curses(self):
+        """Count the number of curse cards in the deck."""
+        return sum(1 for card in self.current_deck if card.type == "curse")
+
+    def add_demerit(self):
+        """Add a demerit card to the deck."""
+        self.current_deck.append(cards.Card(-1, type="demerit"))
+        return
+
+    def remove_demerit(self):
+        """Remove a demerit card from the deck."""
+        for index, card in enumerate(self.current_deck):
+            if card.type == "demerit":
+                self.current_deck.pop(index)
+                break
+
+    def count_demerits(self):
+        """Count the number of bless cards in the deck."""
+        return sum(1 for card in (self.current_deck + self.discard)
+                   if card.type == "demerit")
+
+    def add_all_perks(self):
+        """Temporary method to add all perks to deck for testing."""
+        for perk in self.available_perks:
+            self.add_perk(perk)
+
+    def initialize_deck(self):
+        """Make deck equal to the starting set of cards."""
+        standard_deck = []
+        for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
+                      -1, -1, -2, "miss"]:
+            standard_deck.append(cards.Card(value=value))
+        self.current_deck = standard_deck
+        self.last_draw = None
+
+    def add_active_perks(self):
+        """Modify deck with all active perks."""
+        self.initialize_deck()
+        for perk in self.available_perks:
+            if perk.added is True:
+                self.add_perk(perk)
 
     def add_perk(self, perk):
         """Alter deck based on perk."""
         # add cards required to full_deck
         # remove cards required
-        pass
+        for card in perk.add_cards:
+            card.character_class = self.character_class.character_class
+            # print(self.character_class)
+            # print(card.character_class)
+            card.type = 'perk'
+            print(card.type)
+            card.derive_images()
+            self.current_deck.append(card)
+        for value in perk.remove_cards:
+            if value == "nightshroud_minus_one_dark":
+                pass
+                # add in the eclipse exception
+                # not sure we want to pull from full_deck
+            for index, card in enumerate(self.current_deck):
+                if card.type == "None":
+                    if str(card.value) == str(value):
+                        self.current_deck.pop(index)
+                        break
 
     def needs_shuffling(self):
         """Check for a miss or 2x in discard pile."""
+        needs_shuffling = False
         for card in self.discard:
-            if card.value == "miss" or "2x":
-                return True
+            if card.value == "miss" or card.value == "2x":
+                needs_shuffling = True
+                break
+        return needs_shuffling
 
     def save_deck(self):
         """Save deck to somewhere based on name."""
