@@ -10,6 +10,7 @@ from kivy.uix.image import Image
 from kivy.uix.label import Label
 import deck
 # from characters import character_list
+from kivy.uix.checkbox import CheckBox
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.properties import DictProperty
@@ -462,16 +463,72 @@ class DeckContentScreen(Screen):
     """Screen for showing what remains in the deck."""
 
 
-class PerkSelectButton(Button):
+class PerkSelectCheckbox(CheckBox):
     """Button for selecting perks."""
+
+    perk_index = NumericProperty(0)
+
+    def check(self, check_instance, is_active):
+        """Do the following when checkbox is checked."""
+        if is_active:
+            myDeck.available_perks[check_instance.perk_index].added = True
+            # print("is_checked")
+            # print(check_instance.perk_index)
+        else:
+            myDeck.available_perks[check_instance.perk_index].added = False
+            # print("not is_checked")
+            # print(check_instance.perk_index)
 
 
 class PerkLayout(GridLayout):
     """Layout for perk selection."""
 
 
+class PerkSelectScreenButton(Button):
+    """Button on main screen to select perks."""
+
+
+class ReturnToMainScreenButton(Button):
+    """Button to return to main screen."""
+
+    def apply_perks(self):
+        """Apply perk effects before returning to the main screen."""
+        myDeck.add_active_perks()
+
+
 class PerkSelectionScreen(Screen):
     """Screen for selecting perks."""
+
+    def populate(self):
+        """Add perks to perk screen."""
+        self.clear_widgets()
+        layout = PerkLayout()
+        # add gridlayout
+        # for loop, each perk gets a button (check or not)
+        # and a label (perk's description)
+        for index, item in enumerate(myDeck.available_perks):
+            # make checkbox
+            checkbox = PerkSelectCheckbox(perk_index=index)
+            print(dir(checkbox))
+            checkbox.bind(active=checkbox.check)
+            layout.add_widget(checkbox)
+            # if active, make check
+            # add text
+            perk_text = PerkLabel(text=item.description)
+            # add widgets
+            layout.add_widget(perk_text)
+        back_button = ReturnToMainScreenButton(size_hint_x=.2)
+        layout.add_widget(back_button)
+        return_label = PerkLabel(text="Back to Main Screen")
+        layout.add_widget(return_label)
+        self.add_widget(layout)
+
+
+class PerkLabel(Label):
+    """Labels for perk selection screen."""
+
+    # perk_list = ListProperty(myDeck.available_perks)
+    # perk_text = StringProperty('')
 
 
 class DeckApp(App):
