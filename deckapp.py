@@ -19,7 +19,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 # from kivy.uix.dropdown import DropDown
 Window.size = (360, 780)
 
-myDeck = deck.Deck("deck_name", "brute")
+myDeck = deck.Deck("deck_name")
 
 
 class MainDeckScreen(Screen):

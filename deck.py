@@ -164,37 +164,24 @@ class Last_Draw:
 class Deck:
     """A deck that can be modified."""
 
-    def __init__(self, name, character_class):
+    def __init__(self, name):
         """Initialize attributes."""
         self.name = name
-        self.character_class = characters.Character_Class(character_class)
-        self.full_deck = []
-        self.standard_deck = []
-        for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
-                      -1, -1, -2, "miss"]:
-            self.standard_deck.append(cards.Card(value=value))
-        self.current_deck = self.standard_deck
+        self.character_class = None
+        # self.character_class = characters.Character_Class(character_class)
+        self.current_deck = []
         self.discard = []
-        self.active_perks = []
-        self.available_perks = self.character_class.perks
+        self.available_perks = []
         self.bless_count = 0
         self.curse_count = 0
-        # will figure out what to call extra -1 cards later
         self.demerit = 0
         self.demerit_count = 0
-        # last_draw will be [type_of_draw, [cards], [modifiers]]
         self.last_draw = None
-        # self.add_all_perks()
 
     def set_character(self, character):
         """Change character for deck."""
         self.discard = []
-        self.current_deck = []
-        self.standard_deck = []
-        for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
-                      -1, -1, -2, "miss"]:
-            self.standard_deck.append(cards.Card(value=value))
-        self.current_deck = self.standard_deck
+        self.initialize_deck()
         self.active_perks = []
         self.character_class = characters.Character_Class(character)
         self.available_perks = self.character_class.perks
@@ -284,6 +271,22 @@ class Deck:
         """Temporary method to add all perks to deck for testing."""
         for perk in self.available_perks:
             self.add_perk(perk)
+
+    def initialize_deck(self):
+        """Make deck equal to the starting set of cards."""
+        standard_deck = []
+        for value in ["2x", 2, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, -1, -1, -1,
+                      -1, -1, -2, "miss"]:
+            standard_deck.append(cards.Card(value=value))
+        self.current_deck = standard_deck
+        self.last_draw = None
+
+    def add_active_perks(self):
+        """Modify deck with all active perks."""
+        self.initialize_deck()
+        for perk in self.available_perks:
+            if perk.added is True:
+                self.add_perk(perk)
 
     def add_perk(self, perk):
         """Alter deck based on perk."""
