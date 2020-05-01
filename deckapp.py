@@ -15,7 +15,7 @@ from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.properties import DictProperty
 from kivy.properties import BooleanProperty
-# from kivy.properties import ListProperty
+from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
 # from kivy.uix.dropdown import DropDown
@@ -129,7 +129,7 @@ class ShuffleButton(Button):
         print("Deck needs shuffling?")
         print(myDeck.needs_shuffling())
         if myDeck.needs_shuffling():
-                self.shuffle_disabled = False
+            self.shuffle_disabled = False
         else:
             self.shuffle_disabled = True
 
@@ -471,15 +471,43 @@ class PerkSelectCheckbox(CheckBox):
     """Button for selecting perks."""
 
     perk_index = NumericProperty(0)
+    is_disabled = BooleanProperty(False)
+
+    def update(self):
+        """Disable items if they need to be disabled."""
+        self.disabled = myDeck.available_perks[self.perk_index].is_disabled
+        if self.disabled is True:
+            # self.active = False
+            myDeck.available_perks[self.perk_index].added = False
+        self.active = myDeck.available_perks[self.perk_index].added
 
     def check(self, check_instance, is_active):
         """Do the following when checkbox is checked."""
+        if myDeck.character_class.character_class == "nightshroud":
+            for x in [3, 4]:
+                if myDeck.available_perks[x].added is True:
+                    myDeck.available_perks[x+2].is_disabled = False
+                    # print([type(widget) for widget in self.parent.walk()])
+                    # for w in 11, 12, 13, 14:
+                    #     print(self.parent.children[w])
+                    #     self.parent.children[w].update()
+                else:
+                    myDeck.available_perks[x+2].is_disabled = True
+
+            if myDeck.available_perks[check_instance.perk_index].is_disabled:
+                self.is_disabled = True
+            for widget in self.parent.children:
+                widget.update()
         if is_active:
             myDeck.available_perks[check_instance.perk_index].added = True
+            for widget in self.parent.children:
+                widget.update()
             # print("is_checked")
             # print(check_instance.perk_index)
         else:
             myDeck.available_perks[check_instance.perk_index].added = False
+            for widget in self.parent.children:
+                widget.update()
             # print("not is_checked")
             # print(check_instance.perk_index)
 
@@ -510,17 +538,23 @@ class PerkSelectionScreen(Screen):
         self.clear_widgets()
         layout = PerkLayout()
         # add gridlayout
-        # for loop, each perk gets a button (check or not)
+        # for loop, each perk gets a checkbox
         # and a label (perk's description)
         for index, item in enumerate(myDeck.available_perks):
-            # make checkbox
-            checkbox = PerkSelectCheckbox(perk_index=index)
-            print(dir(checkbox))
+            label_color = [0, 0, 0, 1]
+            is_checked = False
+            if item.added:
+                is_checked = True
+            checkbox = PerkSelectCheckbox(perk_index=index,
+                                          is_disabled=item.is_disabled,
+                                          active=is_checked)
+            # print(dir(checkbox))
             checkbox.bind(active=checkbox.check)
             layout.add_widget(checkbox)
-            # if active, make check
-            # add text
-            perk_text = PerkLabel(text=item.description)
+            if item.is_disabled:
+                label_color = [0, 0, 0, .5]
+            perk_text = PerkLabel(text=item.description,
+                                  perk_index=index, my_text_color=label_color)
             # add widgets
             layout.add_widget(perk_text)
         back_button = ReturnToMainScreenButton()
@@ -535,6 +569,15 @@ class PerkLabel(Label):
 
     # perk_list = ListProperty(myDeck.available_perks)
     # perk_text = StringProperty('')
+    my_text_color = ListProperty([0, 0, 0, 1])
+    perk_index = NumericProperty(0)
+
+    def update(self):
+        """Change text color if disabled."""
+        if myDeck.available_perks[self.perk_index].is_disabled:
+            self.my_text_color = [0, 0, 0, .5]
+        else:
+            self.my_text_color = [0, 0, 0, 1]
 
 
 class DeckApp(App):
