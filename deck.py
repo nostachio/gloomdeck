@@ -270,7 +270,10 @@ class Deck:
 
     def remove_demerit(self):
         """Remove a demerit card from the deck."""
-        pass
+        for index, card in enumerate(self.current_deck):
+            if card.type == "demerit":
+                self.current_deck.pop(index)
+                break
 
     def count_demerits(self):
         """Count the number of bless cards in the deck."""
