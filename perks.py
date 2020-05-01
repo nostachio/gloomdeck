@@ -12,6 +12,7 @@ class Perk:
         self.add_cards = []
         self.remove_cards = []
         self.description = description
+        self.added = False
         for card_attribute_set in add:
             self.add_cards.append(card_attribute_set)
         for card_attribute_set in remove:
