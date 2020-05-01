@@ -177,6 +177,7 @@ class Deck:
         self.demerit = 0
         self.demerit_count = 0
         self.last_draw = None
+        self.initialize_deck()
 
     def set_character(self, character):
         """Change character for deck."""
@@ -313,9 +314,12 @@ class Deck:
 
     def needs_shuffling(self):
         """Check for a miss or 2x in discard pile."""
+        needs_shuffling = False
         for card in self.discard:
-            if card.value == "miss" or "2x":
-                return True
+            if card.value == "miss" or card.value == "2x":
+                needs_shuffling = True
+                break
+        return needs_shuffling
 
     def save_deck(self):
         """Save deck to somewhere based on name."""

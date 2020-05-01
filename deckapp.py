@@ -122,13 +122,16 @@ class Deck(RelativeLayout):
 class ShuffleButton(Button):
     """Shuffle Button Widget."""
 
+    shuffle_disabled = BooleanProperty(True)
+
     def update(self):
         """Determine if shuffle is available."""
-        for card in myDeck.discard:
-            if card.value == "2x" or card.value == "miss":
-                self.disabled = True
+        print("Deck needs shuffling?")
+        print(myDeck.needs_shuffling())
+        if myDeck.needs_shuffling():
+                self.shuffle_disabled = False
         else:
-            self.disabled = False
+            self.shuffle_disabled = True
 
     def shuffle(self):
         """Shuffle the deck."""
