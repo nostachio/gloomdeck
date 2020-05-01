@@ -14,6 +14,7 @@ from kivy.uix.checkbox import CheckBox
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
 from kivy.properties import DictProperty
+from kivy.properties import BooleanProperty
 # from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -448,7 +449,7 @@ class CharacterButton(Button):
         CharacterSelectButton.update(
             self.parent.parent.parent.get_screen('main').children[7])
         self.parent.parent.parent.get_screen(
-            'main').children[6].disabled = False
+            'main').children[6].is_disabled = False
 
 
 class CharacterLayout(GridLayout):
@@ -486,6 +487,8 @@ class PerkLayout(GridLayout):
 
 class PerkSelectScreenButton(Button):
     """Button on main screen to select perks."""
+
+    is_disabled = BooleanProperty(True)
 
 
 class ReturnToMainScreenButton(Button):

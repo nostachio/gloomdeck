@@ -10,8 +10,11 @@
         pos_hint: {'center_x': 0.05, 'center_y': 0.95}
         on_press: root.manager.current = 'character'
     PerkSelectScreenButton:
-        size_hint_x: 0.1
-        size_hint_y: 0.1
+        size_hint_x: .1
+        size_hint_y: None
+        height: self.width * .3
+        # allow_stretch: False
+        # keep_ratio: True
         pos_hint: {'center_x': 0.95, 'center_y': 0.95}
         on_press: root.manager.current = 'perk_selection'
     Deck:
@@ -415,10 +418,10 @@
 <ReturnToMainScreenButton>:
     on_press: self.apply_perks()
     on_release: self.parent.parent.manager.current = 'main'
-<PerkSelectionScreenButton>:
-    background_normal: 'images/checked_box.png'
+<PerkSelectScreenButton>:
+    background_normal: 'images/perk_button.png'
     background_disabled_normal: 'images/null.png'
-    disabled: True
+    disabled: self.is_disabled
 <PerkLayout>:
     id: perk_layout_widget
     cols: 2
