@@ -439,11 +439,15 @@ class CharacterSelectButton(Button):
 
 
 class CharacterButton(Button):
-    """Individual character buttons fir the CharacterDropdown."""
+    """Individual character buttons for the CharacterDropdown."""
 
     def select_character(self, character):
         """Set character."""
         myDeck.set_character(character)
+        CharacterSelectButton.update(
+            self.parent.parent.parent.get_screen('main').children[7])
+        self.parent.parent.parent.get_screen(
+            'main').children[6].disabled = False
 
 
 class CharacterLayout(GridLayout):
