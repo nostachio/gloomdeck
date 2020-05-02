@@ -10,8 +10,8 @@ import cards
 import characters
 
 
-# class StatusWithNumber(RelativeLayout):
-#     """Widget combining a status image with a number label."""
+class StatusNumber(Label):
+    """Number for statuses that stack."""
 
 
 class Last_Draw:
@@ -226,9 +226,7 @@ class Last_Draw:
                 else:
                     status_widget.add_widget(
                         Image(source="images/{0}.png".format(status)))
-                status_widget.add_widget(
-                    Label(text=str(value),
-                          pos_hint={'center_x': .7, 'center_y': .5}))
+                status_widget.add_widget(StatusNumber(text=str(value)))
                 results.append(status_widget)
         return results
 
