@@ -47,7 +47,10 @@ class Card:
     def select_status_effect_image(self):
         """Add corresponding status effect image to card."""
         if self.status_effect is not None:
-            image = "images/{0}.png".format(self.status_effect)
+            if self.status_effect == "curse":
+                image = "images/curse_icon.png"
+            else:
+                image = "images/{0}.png".format(self.status_effect)
         else:
             image = "images/null.png"
         return image

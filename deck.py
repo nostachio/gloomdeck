@@ -220,11 +220,15 @@ class Last_Draw:
                 results.append(Image(source="images/{0}.png".format(status)))
             elif status in status_num and value > 0:
                 status_widget = RelativeLayout()
-                status_widget.add_widget(
-                    Image(source="images/{0}.png".format(status)))
+                if status == "curse":
+                    status_widget.add_widget(
+                        Image(source="images/curse_icon.png"))
+                else:
+                    status_widget.add_widget(
+                        Image(source="images/{0}.png".format(status)))
                 status_widget.add_widget(
                     Label(text=str(value),
-                          pos_hint={'center_x': .7, 'center_y': .3}))
+                          pos_hint={'center_x': .7, 'center_y': .5}))
                 results.append(status_widget)
         return results
 
