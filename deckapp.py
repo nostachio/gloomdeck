@@ -266,13 +266,14 @@ class Discard(RelativeLayout):
             card_one = myDeck.last_draw.cards[0]
             if len(myDeck.last_draw.cards) == 2:
                 card_two = myDeck.last_draw.cards[1]
-                if card_one.is_this_card_better_than_me(card_two):
-                    main_card = card_two
-                    secondary_card = card_one
+                card_dict = card_one.card_comparison(card_two)
+                if myDeck.last_draw.draw_type == "advantage":
+                    main_card = card_dict['better_card']
+                    secondary_card = card_dict['worse_card']
                     secondary_card_opacity = 0.3
                 else:
-                    main_card = card_one
-                    secondary_card = card_two
+                    main_card = card_dict['worse_card']
+                    secondary_card = card_dict['better_card']
                     secondary_card_opacity = 0.3
             elif myDeck.last_draw.draw_type == "advantage":
                 main_card = card_one
