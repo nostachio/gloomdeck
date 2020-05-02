@@ -2,9 +2,16 @@
 
 Class for Decks.
 """
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.uix.image import Image
+from kivy.uix.label import Label
 import random
 import cards
 import characters
+
+
+# class StatusWithNumber(RelativeLayout):
+#     """Widget combining a status image with a number label."""
 
 
 class Last_Draw:
@@ -159,6 +166,81 @@ class Last_Draw:
                 elements[self.cards[0].element] = True
         elements.pop(None, None)
         return elements
+
+    def result_line_attack(self):
+        """Compile attack portion of results."""
+        results = []
+        # if miss, first item is miss icon
+        if self.no_damage is True:
+            results.append(Label(text='0'))
+        else:
+            results.append(Image(source='images/ability_card.png'))
+            if self.attack >= 0:
+                results.append(Image(source='images/plus.png'))
+                results.append(Label(text=str(self.attack)))
+            else:
+                results.append(Image(source='images/minus.png'))
+                results.append(Label(text=str(abs(self.attack))))
+        results.append(Image(source='images/attack_white.png'))
+        if self.double_damage is True:
+            results.insert(0, Label(text='('))
+            results.insert(-1, Label(text=')'))
+            results.insert(-1, Label(text='x 2'))
+        return results
+
+    def result_line_status(self):
+        """Compile widgets for status effects."""
+        results = []
+        status_tf = [
+            'stun',
+            'immobilize',
+            'disarm',
+            'wound',
+            'muddle',
+            'poison',
+            'strengthen',
+            'invisible',
+            'regenerate',
+            'item'
+        ]
+        status_num = [
+            'push_total',
+            'pull_total',
+            'pierce_total',
+            'target_total',
+            'heal_self_total',
+            'heal_ally_total',
+            'shield_self_total',
+            'shield_ally_total',
+            'curse',
+        ]
+
+        for status, value in self.status_effects.items():
+            if status in status_tf and value is True:
+                results.append(Image(source="images/{0}.png".format(status)))
+            elif status in status_num and value > 0:
+                status_widget = RelativeLayout()
+                status_widget.add_widget(
+                    Image(source="images/{0}.png".format(status)))
+                status_widget.add_widget(
+                    Label(text=str(value),
+                          pos_hint={'center_x': .7, 'center_y': .3}))
+                results.append(status_widget)
+        return results
+
+    def result_line_elements(self):
+        """Compile elements portion of attack result."""
+        results = []
+        for element, present in self.elements.items():
+            if present:
+                results.append(Image(source="images/{0}.png".format(element)))
+        if len(results) == 0:
+            results = [Image(source='images/null.png')]
+        return results
+        # for each non-counting status, put an icon
+        # for each counting status, put an icon and a number
+        # for each element, put an icon
+        # return a list
 
 
 class Deck:
