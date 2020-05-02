@@ -32,10 +32,9 @@
         col_force_default: True
         col_default_width: 30
         size_hint_x: 1
-        size_hint_y: 0.04
+        size_hint_y: .1
+        #size_hint_y: 0.04
         pos_hint: {'center_x': 0.5, 'center_y': 0.18}
-        # Button:
-        #     text: "drawresult"
     Discard:
         size_hint_x: 1
         size_hint_y: 0.3
@@ -44,7 +43,11 @@
         size_hint_x: 1
         size_hint_y: 0.15
         pos_hint: {'center_x': 0.5, 'center_y': 0.08}
-    DrawResult:
+    Image:
+        source: 'images/null.png'
+        size_hint_x: .001
+        size_hint_y: .001
+    #DrawResult:
 
 #     cols: root.my_columns
     # Label:

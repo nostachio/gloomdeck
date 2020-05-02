@@ -6,7 +6,7 @@ from kivy.app import App
 from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
-from kivy.uix.image import Image
+# from kivy.uix.image import Image
 from kivy.uix.label import Label
 import deck
 # from characters import character_list
@@ -215,106 +215,16 @@ class SpecificCard(RelativeLayout):
 class DrawResult(GridLayout):
     """Draw result display widget."""
 
-    #
-    # my_columns = NumericProperty(2)
-
     def update(self):
         """Display results of draw."""
-        count_status_icons = {
-            'push_total': 'images/push.png',
-            'pull_total': 'images/pull.png',
-            'pierce_total': 'images/pierce.png',
-            'target_total': 'images/target.png',
-            'heal_self_total': 'images/heal_white.png',
-            'heal_ally_total': 'images/heal_white.png',
-            'shield_self_total': 'images/shield_white.png',
-            'shield_ally_total': 'images/shield_white.png',
-            'curse': 'images/curse.png'
-        }
         self.clear_widgets()
-        # widgets = []
-        # number
-        card = Image(source=('images/ability_card.png'))
-        attack_icon = Image(
-            source=('images/attack_white.png')
-        )
-        multiplier = Label(text='*')
-        if myDeck.last_draw.no_damage:
-            # miss icon widget
-            attack = Image(
-                source=('images/miss.png')
-            )
-            self.add_widget(attack)
-        elif myDeck.last_draw.double_damage:
-            print(myDeck.last_draw.no_damage)
-            double = Image(
-                source=('images/2x.png')
-            )
-            attack = Label(
-                text=(str(myDeck.last_draw.attack))
-            )
-            add = Label(text='+')
-            open = Label(text='(')
-            close = Label(text=')')
-            self.add_widget(open)
-            self.add_widget(card)
-            self.add_widget(add)
-            self.add_widget(attack)
-            self.add_widget(close)
-            self.add_widget(multiplier)
-            self.add_widget(double)
-            self.add_widget(attack_icon)
-        else:
-            # label with myDeck.last_draw.attack
-            attack = Label(
-                text=(str(myDeck.last_draw.attack))
-            )
-            if myDeck.last_draw.attack >= 0:
-                add = Label(text='+')
-            else:
-                add = Label(text='')
-            self.add_widget(card)
-            self.add_widget(add)
-            self.add_widget(attack)
-            # attack icon
-            self.add_widget(attack_icon)
-        # element icons
-        # print(myDeck.last_draw.elements)
-        for key in myDeck.last_draw.elements:
-            if myDeck.last_draw.elements[key]:
-                # print("key", key)
-                # print("myDeck.last_draw.elements[key]",
-                #       myDeck.last_draw.elements[key])
-                element_widget = Image(
-                    source=('images/{0}.png'.format(key)),
-                    allow_stretch=(True)
-                )
-                self.add_widget(element_widget)
-        # status icons
-        for status in myDeck.last_draw.status_effects:
-            if status in ['push_total', 'pull_total', 'pierce_total',
-                          'target_total', 'heal_self_total', 'heal_ally_total',
-                          'shield_self_total', 'shield_ally_total', 'curse']:
-                if myDeck.last_draw.status_effects[status] > 0:
-                    print(myDeck.last_draw.status_effects[status])
-                    text = str(myDeck.last_draw.status_effects[status])
-                    number = Label(text=(text))
-                    numbered_status = Image(
-                        source=(count_status_icons['{0}'.format(status)])
-                    )
-                    self.add_widget(number)
-                    self.add_widget(numbered_status)
-            elif status in ['push1', 'push2', 'pull1', 'pierce3', 'target',
-                            'heal_self1', 'heal_self2', 'heal_self3',
-                            'heal_ally2', 'shield_self1', 'shield_ally1']:
-                pass
-            elif myDeck.last_draw.status_effects[status]:
-                status_widget = Image(
-                    source=('images/{0}.png'.format(status)))
-                self.add_widget(status_widget)
-        # self.my_columns = len(widgets)
-        # for widget in widgets:
-        #     self.add_widget(widget)
+        # ensure there's not 0 elements in a column to prevent divide by zero
+        self.add_widget(Label())
+        results = myDeck.last_draw.result_line_attack()\
+            + myDeck.last_draw.result_line_status()\
+            + myDeck.last_draw.result_line_elements()
+        for w in results:
+            self.add_widget(w)
 
 
 class Discard(RelativeLayout):
