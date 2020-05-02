@@ -28,6 +28,10 @@ class MainDeckScreen(Screen):
     """Create the deck screen."""
 
 
+class MainDeckLayout(RelativeLayout):
+    """Layout for main deck screen."""
+
+
 class TopButtons(RelativeLayout):
     """Place for the curse, shuffle, bless buttons."""
 
@@ -361,9 +365,10 @@ class CharacterButton(Button):
         """Set character."""
         myDeck.set_character(character)
         CharacterSelectButton.update(
-            self.parent.parent.parent.get_screen('main').children[7])
+            self.parent.parent.parent.get_screen(
+                'main').children[0].children[7])
         self.parent.parent.parent.get_screen(
-            'main').children[6].is_disabled = False
+            'main').children[0].children[6].is_disabled = False
 
 
 class CharacterLayout(GridLayout):
@@ -497,10 +502,10 @@ class DeckApp(App):
     def build(self):
         """Give deck screen to app."""
         screenmanager = ScreenManager()
+        screenmanager.add_widget(MainDeckScreen(name="main"))
         screenmanager.add_widget(CharacterScreen(name="character"))
         screenmanager.add_widget(DeckContentScreen(name="deck_content"))
         screenmanager.add_widget(PerkSelectionScreen(name="perk_selection"))
-        screenmanager.add_widget(MainDeckScreen(name="main"))
         screenmanager.current = 'main'
         return screenmanager
 

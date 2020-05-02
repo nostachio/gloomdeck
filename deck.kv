@@ -1,6 +1,12 @@
 #:kivy 1.9.1
-
 <MainDeckScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'images/H1a.png'
+    MainDeckLayout:
+<MainDeckLayout>:
     id: main_layout
     size_hint_x: 0.9
     pos_hint: {'center_x': 0.5}
@@ -8,7 +14,7 @@
         size_hint_x: 0.1
         size_hint_y: None
         pos_hint: {'center_x': 0.05, 'center_y': 0.95}
-        on_press: root.manager.current = 'character'
+        on_press: root.parent.manager.current = 'character'
     PerkSelectScreenButton:
         size_hint_x: .1
         size_hint_y: None
@@ -16,7 +22,7 @@
         # allow_stretch: False
         # keep_ratio: True
         pos_hint: {'center_x': 0.95, 'center_y': 0.95}
-        on_press: root.manager.current = 'perk_selection'
+        on_press: root.parent.manager.current = 'perk_selection'
     Deck:
         size_hint_x: 1
         size_hint_y: 0.3
@@ -335,7 +341,7 @@
     Label:
         text: "deck_content"
 <PerkSelectionScreen>:
-    on_enter: self.populate()
+    on_pre_enter: self.populate()
     canvas.before:
         Rectangle:
             pos: self.pos
@@ -346,8 +352,13 @@
     # on_release: app.root.screenmanager.ScreenManager.current = 'main'
     # on_release: print([type(widget) for widget in app.root.walk(loopback=True)])
 <CharacterLayout>:
-    cols: 4
+    cols: 3
 <CharacterScreen>:
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'images/L2b.png'
     CharacterLayout:
         CharacterButton:
             background_normal: 'images/brute.png'
