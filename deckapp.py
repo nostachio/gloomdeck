@@ -142,6 +142,8 @@ class ShuffleButton(Button):
         myDeck.shuffle()
         DiscardHistory.update_discard(self.parent.parent.children[1])
         TopButtons.update(self.parent.parent.children[4])
+        self.parent.parent.children[3].clear_widgets()
+        self.parent.parent.children[2].clear_widgets()
 
 
 class DiscardHistory(RelativeLayout):
