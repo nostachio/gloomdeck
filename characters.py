@@ -44,24 +44,6 @@ class Character_Class:
             self.perks.append(perk)
 
 
-# description='', add=[], remove=[]
-# [
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[]),
-#         Perk(description="", add=[], remove=[])
-# ]
 brute_perks = [
     Perk(description="Remove two -1 cards", remove=[-1, -1]),
     Perk(description="Replace one -1 card with one +1 card",

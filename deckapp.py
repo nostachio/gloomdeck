@@ -9,7 +9,6 @@ from kivy.uix.button import Button
 # from kivy.uix.image import Image
 from kivy.uix.label import Label
 import deck
-# from characters import character_list
 from kivy.uix.checkbox import CheckBox
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
@@ -18,7 +17,6 @@ from kivy.properties import BooleanProperty
 from kivy.properties import ListProperty
 from kivy.core.window import Window
 from kivy.uix.screenmanager import ScreenManager, Screen
-# from kivy.uix.dropdown import DropDown
 Window.size = (360, 780)
 
 myDeck = deck.Deck("deck_name")
@@ -58,13 +56,9 @@ class DrawButton(Button):
 class DisadvantageButton(DrawButton):
     """Disadvantage Button Widget."""
 
-    pass
-
 
 class AdvantageButton(DrawButton):
     """Advantage Button Widget."""
-
-    pass
 
 
 class BlessButton(Button):
@@ -78,7 +72,6 @@ class BlessButton(Button):
         """Add a bless card to the deck."""
         myDeck.add_bless()
         self.update()
-        print("bless added")
 
     def remove_bless(self):
         """Remove bless from deck."""
@@ -97,7 +90,6 @@ class CurseButton(Button):
         """Add a curse card to the deck."""
         myDeck.add_curse()
         self.update()
-        # print("curse added")
 
     def remove_curse(self):
         """Remove curse from deck."""
@@ -116,7 +108,6 @@ class DemeritButton(Button):
         """Add a demerit card to the deck."""
         myDeck.add_demerit()
         self.update()
-        print("demerit added")
 
 
 class Deck(RelativeLayout):
@@ -130,8 +121,6 @@ class ShuffleButton(Button):
 
     def update(self):
         """Determine if shuffle is available."""
-        print("Deck needs shuffling?")
-        print(myDeck.needs_shuffling())
         if myDeck.needs_shuffling():
             self.shuffle_disabled = False
         else:
@@ -153,14 +142,8 @@ class DiscardHistory(RelativeLayout):
         """Display the last x cards in discard."""
         self.clear_widgets()
         for i, this_card in enumerate(reversed(myDeck.discard)):
-            # print("length", len(myDeck.discard))
-            # print("discard", myDeck.discard)
-            # print(this_card)
-            # print("i", i)
             cx = (0.1 + (0.1 * (i % 9)))
             cy = 0.95 - (.25 * (i / 9))
-            # print("forforfor")
-            # print("prewidget")
             this_card_widget = SpecificCard(
                 modifier_image=this_card.main_image,
                 element_image=this_card.element_image,
@@ -172,38 +155,9 @@ class DiscardHistory(RelativeLayout):
                 size_hint_y=(.3),
                 pos_hint=({'center_y': cy, 'center_x': cx})
             )
-            # print("postwidget, pre-add-widget")
             self.add_widget(this_card_widget)
-            # print("postaddwidget")
-            # base_card = Image(size_hint_x=(0.1), size_hint_y=(0.3),
-            #                   source=('images/blank.jpg'),
-            #                   allow_stretch=(True),
-            #                   id=('discard_base'),
-            #                   pos_hint=({'center_y': cy, 'center_x': cx}))
-            # modifier = Image(size_hint_x=(0.1),
-            #                  size_hint_y=(0.3),
-            #                  id=('discard_mod'),
-            #                  source=(this_card.main_image),
-            #                  allow_stretch=(True),
-            #                  pos_hint=({'center_y': cy, 'center_x': cx}))
-            # self.add_widget(base_card)
-            # self.add_widget(modifier)
-            # if this_card.is_rolling:
-            #     rolling = SpecificCard(
-            #         modifier_image=this_card.main_image,
-            #         element_image=this_card.element_image,
-            #         status_image=this_card.status_effect_image,
-            #         rolling_image=this_card.rolling_image,
-            #         class_image=this_card.character_class_image,
-            #         allow_stretch=True,
-            #         size_hint_x=(.1),
-            #         size_hint_y=(.3),
-            #         pos_hint=({'center_y': cy, 'center_x': cx})
-            #     )
-            #     self.add_widget(rolling)
 
 
-# class SpecificCard(RelativeLayout):
 class SpecificCard(RelativeLayout):
     """Card Widget."""
 
@@ -234,12 +188,7 @@ class DrawResult(GridLayout):
 
 
 class Discard(RelativeLayout):
-    # class Discard(SpecificCard):
     """Discard Pile Widget."""
-
-    # my_size_hint_x = NumericProperty(1)
-    # my_size_hint_y = NumericProperty(0.3)
-    # my_pos_hint = DictProperty({'center_x': 0.5, 'center_y': 0.35})
 
     def update(self):
         """Place cards onto discard pile."""
@@ -291,9 +240,6 @@ class Discard(RelativeLayout):
                 secondary_card = myDeck.last_draw.modifiers[0]
                 secondary_card_opacity = 0.3
                 rolling_opacity = 0.3
-                # print("secondary_card", secondary_card.value)
-                # print("2nd better?",
-                # card_one.is_this_card_better_than_me(secondary_card))
             discard_main_card = SpecificCard(
                 modifier_image=main_card.main_image,
                 element_image=main_card.element_image,
@@ -326,8 +272,6 @@ class Discard(RelativeLayout):
                     else:
                         cx = 0.7 - (0.2 * ((4 - i) / 2))
                         cy = 0.38 - (0.2 * ((4 - i) % 2))
-                    # cx = 0.7 + (0.2 * (i / 2))
-                    # cy = 0.38 - (0.2 * (i % 2))
                     rolling =\
                         SpecificCard(
                             modifier_image=rolling_card.main_image,
@@ -347,17 +291,9 @@ class CharacterSelectButton(Button):
 
     character_image = StringProperty('images/character_select.png')
 
-    # def open_dropdown(self):
-    #     """Open the dropdown menu."""
-    #     dropdown.open
-
     def update(self):
         """Set button image to currently selected character."""
         self.character_image = myDeck.character_class.image
-
-
-# class CharacterDropdown(DropDown):
-#     """Dropdown to select character class."""
 
 
 class CharacterButton(Button):
@@ -405,10 +341,6 @@ class PerkSelectCheckbox(CheckBox):
             for x in [3, 4]:
                 if myDeck.available_perks[x].added is True:
                     myDeck.available_perks[x+2].is_disabled = False
-                    # print([type(widget) for widget in self.parent.walk()])
-                    # for w in 11, 12, 13, 14:
-                    #     print(self.parent.children[w])
-                    #     self.parent.children[w].update()
                 else:
                     myDeck.available_perks[x+2].is_disabled = True
 
@@ -420,14 +352,10 @@ class PerkSelectCheckbox(CheckBox):
             myDeck.available_perks[check_instance.perk_index].added = True
             for widget in self.parent.children:
                 widget.update()
-            # print("is_checked")
-            # print(check_instance.perk_index)
         else:
             myDeck.available_perks[check_instance.perk_index].added = False
             for widget in self.parent.children:
                 widget.update()
-            # print("not is_checked")
-            # print(check_instance.perk_index)
 
 
 class PerkLayout(GridLayout):
@@ -455,9 +383,6 @@ class PerkSelectionScreen(Screen):
         """Add perks to perk screen."""
         self.clear_widgets()
         layout = PerkLayout()
-        # add gridlayout
-        # for loop, each perk gets a checkbox
-        # and a label (perk's description)
         for index, item in enumerate(myDeck.available_perks):
             label_color = [0, 0, 0, 1]
             is_checked = False
@@ -466,27 +391,21 @@ class PerkSelectionScreen(Screen):
             checkbox = PerkSelectCheckbox(perk_index=index,
                                           is_disabled=item.is_disabled,
                                           active=is_checked)
-            # print(dir(checkbox))
             checkbox.bind(active=checkbox.check)
             layout.add_widget(checkbox)
             if item.is_disabled:
                 label_color = [0, 0, 0, .5]
             perk_text = PerkLabel(text=item.description,
                                   perk_index=index, my_text_color=label_color)
-            # add widgets
             layout.add_widget(perk_text)
         back_button = ReturnToMainScreenButton()
         self.add_widget(back_button)
-        # return_label = PerkLabel(text="Back to Main Screen")
-        # layout.add_widget(return_label)
         self.add_widget(layout)
 
 
 class PerkLabel(Label):
     """Labels for perk selection screen."""
 
-    # perk_list = ListProperty(myDeck.available_perks)
-    # perk_text = StringProperty('')
     my_text_color = ListProperty([0, 0, 0, 1])
     perk_index = NumericProperty(0)
 
@@ -511,17 +430,6 @@ class DeckApp(App):
         screenmanager.current = 'main'
         return screenmanager
 
-
-# dropdown = CharacterDropdown()
-# for c in character_list:
-#     print(c)
-#     character_button = CharacterButton(
-#         background_normal="images/{0}.png".format(c))
-#     character_button.bind(on_release=lambda c: myDeck.set_character(c))
-#     dropdown.add_widget(character_button)
-# character_select_button = CharacterSelectButton()
-# character_select_button.bind(on_press=dropdown.open)
-# MainDeckScreen.add_widget(character_select_button)
 
 if __name__ == '__main__':
     DeckApp().run()

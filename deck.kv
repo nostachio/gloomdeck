@@ -19,8 +19,6 @@
         size_hint_x: .1
         size_hint_y: None
         height: self.width * .3
-        # allow_stretch: False
-        # keep_ratio: True
         pos_hint: {'center_x': 0.95, 'center_y': 0.95}
         on_press: root.parent.manager.current = 'perk_selection'
     Deck:
@@ -39,7 +37,6 @@
         col_default_width: 30
         size_hint_x: 1
         size_hint_y: .1
-        #size_hint_y: 0.04
         pos_hint: {'center_x': 0.5, 'center_y': 0.18}
     Discard:
         size_hint_x: 1
@@ -53,69 +50,6 @@
         source: 'images/null.png'
         size_hint_x: .001
         size_hint_y: .001
-    #DrawResult:
-
-#     cols: root.my_columns
-    # Label:
-    
-#     RelativeLayout:
-
-#         pos_hint: {'center_x': 0.5}
-#         # RelativeLayout:
-#         #     size_hint_y: 0.3
-#         #     pos_hint: {'bottom': 0.9}    
-
-#         # RelativeLayout:
-#         #     id: disad_RL
-#         #     size_hint_y: 0.3
-#         #     size_hint_x: 1
-#         #     pos_hint: {'center_x': 0.5, 'center_y': 0.35}
-#             #source: 'images/0.png'
-#             #allow_stretch: True
-#             # Image:
-#             #     id: disad1
-#             #     source: 'images/blank.png'
-#             #     size_hint_y: 0.55
-#             #     size_hint_x: 0.55
-#             #     pos_hint: {'center_x': 0.3, 'center_y': 0.3}
-#             #     allow_stretch: True
-#             #     #keep_ratio: True
-#             # Image:
-#             #     id: disad1_main
-#             #     size_hint_y: 0.55
-#             #     size_hint_x: 0.55
-#             #     pos_hint: {'center_x': 0.3, 'center_y': 0.3}
-#             #     source: 'images/0.png'
-#             #     allow_stretch: True
-#             # Image:
-#             #     id: disad2
-#             #     source: 'images/blank.png'
-#             #     size_hint_y: 0.55
-#             #     size_hint_x: 0.55
-#             #     pos_hint: {'center_x': 0.7, 'center_y': 0.7}
-#             #     allow_stretch: True
-#             #     #keep_ratio: True
-#             # Image:
-#             #     id: disad2_main
-#             #     size_hint_y: 0.55
-#             #     size_hint_x: 0.55
-#             #     pos_hint: {'center_x': 0.7, 'center_y': 0.7}
-#             #     source: 'images/0.png'
-#             #     allow_stretch: True
-#         # Image:
-#         #     id: discard_template
-#         #     size_hint_x: 0.1
-#         #     size_hint_y: 0.1
-#         #     source: 'images/blank.png'
-#         #     allow_stretch: True
-#         #     pos_hint: {'center_y': 0.05, 'center_x': 0.1}
-#         # Image:
-#         #     id: discard_template_mod
-#         #     size_hint_x: 0.1
-#         #     size_hint_y: 0.1
-#         #     source: 'images/0.png'
-#         #     allow_stretch: True
-#         #     pos_hint: {'center_y': 0.05, 'center_x': 0.1}
 <Button>:
     font_name: 'fonts/gloomfont.ttf'
 <Label>:
@@ -124,195 +58,105 @@
     Image:
         source: 'images/deck_back.png'
         allow_stretch: True
-        #keep_ratio: True
     DrawButton:
         id: draw
-        #text: 'Draw'
         on_press: self.draw("simple")
         size_hint: 1, 1
-        # size_hint_y: 0.3
-        # size_hint_x: 1
         background_color: 0, 0, 0, 0
-        #height: root.ids.deck.height
-        #width: root.ids.deck.width
-        #allow_stretch: True
-        # pos_hint: {'center_x': 0.5, 'center_y': 0.65}
-        # AdvantageButton:
-        #     size_hint: 0.2, 0.2
-        #     pos_hint: {'center_x': 0.9, 'center_y': 0.8}
-        # DisadvantageButton:
-        #     size_hint: 0.2, 0.2
-        #     pos_hint: {'center_x': 0.1, 'center_y': 0.8}
 <SpecificCard>:
     opacity: root.my_opacity
-    #opacity: .3
-    #size_hint: 1, 1
-    #pos_hint: self.my_pos_hint
-    #size_hint_x: root.my_size_hint_x
-    #size_hint_y: root.my_size_hint_y
-    #allow_stretch: True
-    # Button:
-    #     text: "SpecificCard Button"
     Image:
         source: 'images/blank.png'
         size_hint: 1, 1
         allow_stretch: True
-        #keep_ratio: True
-    # modifier
     Image:
+        id: modifier
         source: root.modifier_image
-        #source: 'images/0.png'
         size_hint: 1, 1
         pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         allow_stretch: True
-    # status
     Image:
-        # source: 'images/null.png'
-        #source: 'images/wound.png'
+        id: status
         source: root.status_image
         size_hint: 0.17, 0.17
         pos_hint: {'center_x': 0.15, 'center_y': 0.5}
-    # element
     Image:
-        # source: 'images/null.png'
-        #source: 'images/light.png'
+        id: element
         source: root.element_image
         size_hint: 0.2, 0.2
         pos_hint: {'center_x': 0.15, 'center_y': 0.5}
-    # rolling
     Image:
-        # source: 'images/null.png'
-        #source: 'images/rolling.png'
+        id: rolling
         source: root.rolling_image
         size_hint: 0.2, 0.2
         pos_hint: {'center_x': 0.85, 'center_y': 0.5}
-    # class
     Image:
+        id: character
         source: root.class_image
         pos_hint: {'center_x': 0.135, 'center_y': 0.22}
         size_hint: 0.1, 0.1
-        # source: 'images/light.png'    
 <TopButtons>:
-    #size_hint_y: 0.1
-    #size_hint_x: 1
     ShuffleButton:
         size_hint_y: None
         size_hint_x: 0.12
         height: self.width
         pos_hint: {'center_x': .14, 'center_y': .5}
         keep_ratio: True
-        #allow_stretch: True
     BlessButton:
         size_hint_y: None
         size_hint_x: 0.12
-        #size_hint_x: None
         height: self.width
         pos_hint: {'center_x': .28, 'center_y': .5}
         keep_ratio: True
-        #allow_stretch: True
     DemeritButton:
         size_hint_y: None
         size_hint_x: 0.12
         height: self.width
         pos_hint: {'center_x': .42, 'center_y': .5}
         keep_ratio: True
-        #allow_stretch: True
     CurseButton:
         size_hint_y: None
         size_hint_x: 0.12
         height: self.width
         pos_hint: {'center_x': .56, 'center_y': .5}
         keep_ratio: True
-        #allow_stretch: True
     AdvantageButton:
         size_hint_y: None
         size_hint_x: 0.12
         height: self.width
         pos_hint: {'center_x': .70, 'center_y': .5}
         keep_ratio: True
-        #allow_stretch: True
     DisadvantageButton:
         size_hint_y: None
         size_hint_x: 0.12
         height: self.width
         pos_hint: {'center_x': .84, 'center_y': .5}
         keep_ratio: True
-        #allow_stretch: True
 <Discard>:
-    # size_hint_y: self.my_size_hint_y
-    # size_hint_x: self.my_size_hint_x
-    # pos_hint: self.my_pos_hint
     size_hint: 1, 1
     allow_stretch: True
-    # Button:
-    #     text: "Discard Button"
-    # SpecificCard:
-        # id: discard_blank
-        #size_hint_y: 1
-        #size_hint_x: 1
-        #size_hint_y: root.my_size_hint_y
-        #size_hint_x: root.my_size_hint_y
-        # pos_hint: {'center_x': 0.5, 'center_y': 0.35}
-        #source: 'images/blank.png'
-        # allow_stretch: True
-# <Discard>:
-#     Image:
-#         id: discard_blank
-#         # size_hint_y: 0.3
-#         # size_hint_x: 1
-#         # pos_hint: {'center_x': 0.5, 'center_y': 0.35}
-#         source: 'images/blank.png'
-#         allow_stretch: True
-#     Image:
-#         id: discard_main
-#         # size_hint_y: 0.3
-#         # size_hint_x: 1
-#         # pos_hint: {'center_x': 0.5, 'center_y': 0.35}
-#         source: 'images/0.png'
-#         allow_stretch: True
 <DrawButton>:
 <DisadvantageButton>:
-    # text: 'Draw with Disadvantage'
     on_press: self.draw("disadvantage")
-    #pos_hint: {'center_y': 0.9, 'center_x': 0.3}
-    #size_hint: 0.1, 0.1
     background_normal: 'images/muddle_icon.png'
-    #allow_stretch: True
     keep_ratio: True
 <ShuffleButton>:
-    # text: 'Shuffle'
     on_press: self.shuffle()
     disabled: self.shuffle_disabled
-    #pos_hint: {'center_x': 0.1, 'center_y': 0.9}
-    #size_hint: 0.1, 0.1
     background_normal: 'images/shuffle.png'
     background_disabled_normal: 'images/shuffle_disabled.png'
-    #allow_stretch: True
     keep_ratio: True  
 <AdvantageButton>:
-    # text: 'Draw with Advantage'
     on_press: self.draw("advantage")
-    #pos_hint: {'center_y': 0.9, 'center_x': 0.9}
-    #size_hint: 0.1, 0.1
     background_normal: 'images/strengthen_icon.png'
-    #allow_stretch: True
     keep_ratio: True
 <CurseButton>:
-    #size_hint: 0.1, 0.1
-    # text: 'Add Bless'
     on_press: root.add_curse()
-    #pos_hint: {'center_y': 0.9, 'center_x': 0.5}
-    # center_x: self.parent.center_x * 0.2
-    # center_y: self.parent.center_y * 0.8
-    #size_hint: 0.1, 0.1
-    #allow_stretch: True
-    #keep_ratio: True
     background_normal: 'images/curse_icon.png'
     text: "0"
     halign: 'right'   
     valign: 'bottom'  
     text_size: self.size     
-        #pos_hint: {'bottom': 1, 'right': 1}
 <DemeritButton>:
     on_press: root.add_demerit()
     background_normal: 'images/demerit.png'
@@ -322,21 +166,13 @@
     text_size: self.size 
 <DrawModifier>:
 <BlessButton>:
-    #size_hint: 0.1, 0.1
-    # text: 'Add Bless'
     on_press: root.add_bless()
-    #pos_hint: {'center_y': 0.9, 'center_x': 0.5}
-    # center_x: self.parent.center_x * 0.2
-    # center_y: self.parent.center_y * 0.8
-    #size_hint: 0.1, 0.1
-    #allow_stretch: True
     keep_ratio: True
     background_normal: 'images/bless_icon.png'
     text: "0"
     halign: 'right'   
     valign: 'bottom'  
     text_size: self.size        
-    #pos_hint: {'bottom': 1, 'right': 1}
 <DeckContentScreen>:
     Label:
         text: "deck_content"
@@ -354,8 +190,6 @@
     font_size: self.height * 0.5
 <CharacterScreen>:
 <CharacterButton>:
-    # on_release: app.root.screenmanager.ScreenManager.current = 'main'
-    # on_release: print([type(widget) for widget in app.root.walk(loopback=True)])
 <CharacterLayout>:
     cols: 3
 <CharacterScreen>:

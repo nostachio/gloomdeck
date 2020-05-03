@@ -18,8 +18,3 @@ class Perk:
             self.add_cards.append(card_attribute_set)
         for card_attribute_set in remove:
             self.remove_cards.append(card_attribute_set)
-        # print("perk")
-        # print(self)
-        # print(self.character_class)
-        # print(self.add_cards)
-        # print(self.remove_cards)

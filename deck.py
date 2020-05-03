@@ -31,7 +31,6 @@ class Last_Draw:
         self.attack = self.attack_result()
         self.status_effects = self.status_effect_result()
         self.elements = self.elements_result()
-        # print(self.status_effects)
 
     def attack_result(self):
         """Add up the attack modifiers."""
@@ -239,10 +238,7 @@ class Last_Draw:
         if len(results) == 0:
             results = [Image(source='images/null.png')]
         return results
-        # for each non-counting status, put an icon
-        # for each counting status, put an icon and a number
-        # for each element, put an icon
-        # return a list
+
 
 
 class Deck:
@@ -252,7 +248,6 @@ class Deck:
         """Initialize attributes."""
         self.name = name
         self.character_class = None
-        # self.character_class = characters.Character_Class(character_class)
         self.current_deck = []
         self.discard = []
         self.available_perks = []
@@ -294,7 +289,6 @@ class Deck:
             if len(self.current_deck) == 0:
                 self.shuffle()
             choice = random.choice(self.current_deck)
-            print(choice.__dict__)
             if choice.is_rolling:
                 modifiers.append(choice)
             else:
@@ -375,21 +369,15 @@ class Deck:
 
     def add_perk(self, perk):
         """Alter deck based on perk."""
-        # add cards required to full_deck
-        # remove cards required
         for card in perk.add_cards:
             card.character_class = self.character_class.character_class
-            # print(self.character_class)
-            # print(card.character_class)
             card.type = 'perk'
-            print(card.type)
             card.derive_images()
             self.current_deck.append(card)
         for value in perk.remove_cards:
             if value == "nightshroud_minus_one_dark":
                 pass
                 # add in the eclipse exception
-                # not sure we want to pull from full_deck
             for index, card in enumerate(self.current_deck):
                 if card.type == "None":
                     if str(card.value) == str(value):
