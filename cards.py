@@ -2,6 +2,24 @@
 
 Class for cards and their methods.
 """
+from kivy.uix.relativelayout import RelativeLayout
+from kivy.properties import StringProperty
+from kivy.properties import NumericProperty
+from kivy.properties import ObjectProperty
+
+
+class SpecificCard(RelativeLayout):
+    """Card Widget."""
+
+    modifier_image = StringProperty('images/null.png')
+    status_image = StringProperty('images/null.png')
+    element_image = StringProperty('images/null.png')
+    rolling_image = StringProperty('images/null.png')
+    class_image = StringProperty('images/null.png')
+    my_size_hint_x = NumericProperty(1)
+    my_size_hint_y = NumericProperty(1)
+    my_pos_hint = ObjectProperty({'center_x': 0.5, 'center_y': 0.5})
+    my_opacity = NumericProperty(1)
 
 
 class Card:
@@ -18,7 +36,28 @@ class Card:
         self.character_class = character_class
         self.status_effect = status_effect
         self.element = element
+        self.main_image = 'images/null.png'
+        self.rolling_image = 'images/null.png'
+        self.character_class_image = 'images/null.png'
+        self.status_effect_image = 'images/null.png'
+        self.element_image = 'images/null.png'
         self.derive_images()
+
+    def widget(self, opacity=1, size_hint_x=1, size_hint_y=1,
+               pos_hint={'center_x': 0.5, 'center_y': 0.5}):
+        """Create a widget for the card."""
+        widget = SpecificCard(
+            modifier_image=self.main_image,
+            element_image=self.element_image,
+            status_image=self.status_effect_image,
+            rolling_image=self.rolling_image,
+            class_image=self.character_class_image,
+            my_size_hint_x=size_hint_x,
+            my_size_hint_y=size_hint_y,
+            my_pos_hint=pos_hint,
+            my_opacity=opacity
+        )
+        return widget
 
     def derive_images(self):
         """Set all image paths."""
