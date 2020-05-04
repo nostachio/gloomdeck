@@ -240,7 +240,6 @@ class Last_Draw:
         return results
 
 
-
 class Deck:
     """A deck that can be modified."""
 
