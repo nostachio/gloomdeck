@@ -39,7 +39,7 @@ class Card:
         if self.character_class is not None:
             image = "images/{0}.png".format(self.character_class)
         elif self.type == "demerit":
-            image = "images/star.png"
+            image = "images/demerit_star.png"
         else:
             image = "images/null.png"
         return image
