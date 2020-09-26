@@ -6,8 +6,8 @@ from kivy.uix.relativelayout import RelativeLayout
 from kivy.uix.image import Image
 from kivy.uix.label import Label
 import random
-import cards
-import characters
+from . import cards
+from . import characters
 
 
 class StatusNumber(Label):

@@ -2,8 +2,8 @@
 
 Define perks for characters.
 """
-from cards import Card
-from perks import Perk
+from .cards import Card
+from .perks import Perk
 
 character_list = [
     'brute',

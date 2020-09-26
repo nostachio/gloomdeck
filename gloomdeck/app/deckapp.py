@@ -8,7 +8,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 # from kivy.uix.image import Image
 from kivy.uix.label import Label
-import deck
+import gloomdeck.deck.deck as deck
 from kivy.uix.checkbox import CheckBox
 from kivy.properties import StringProperty
 from kivy.properties import NumericProperty
@@ -378,7 +378,3 @@ class DeckApp(App):
         screenmanager.add_widget(PerkSelectionScreen(name="perk_selection"))
         screenmanager.current = 'main'
         return screenmanager
-
-
-if __name__ == '__main__':
-    DeckApp().run()
