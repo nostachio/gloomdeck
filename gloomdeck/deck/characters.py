@@ -562,11 +562,9 @@ elementalist_perks = [
          add=[Card(element="earth"),
               Card(element="earth"),
               Card(element="earth")]),
-    Perk(description="Replace two +0 cards with \
-    one +0 Fire card and one +0 Earth card",
+    Perk(description="Replace two +0 cards with one +0 Fire card and one +0 Earth card",
          add=[Card(element="fire"), Card(element="earth")], remove=[0, 0]),
-    Perk(description="Replace two +0 cards with one +0 Ice card\
-    and one +0 Wind card",
+    Perk(description="Replace two +0 cards with one +0 Ice card and one +0 Wind card",
          add=[Card(element="ice"), Card(element="wind")], remove=[0, 0]),
     Perk(description="Add two +1 Push 1 cards",
          add=[Card(value=1, status_effect="push1"),
@@ -620,8 +618,7 @@ diviner_perks = [
          add=[Card(value=3, status_effect="shield_self1")], remove=[1, 1]),
     Perk(description="Replace two +1 cards with one +3 Shield 1, Self card",
          add=[Card(value=3, status_effect="shield_self1")], remove=[1, 1]),
-    Perk(description="Replace one +0 card with \
-    one +1 Shield 1, Affect any Ally card",
+    Perk(description="Replace one +0 card with one +1 Shield 1, Affect any Ally card",
          add=[Card(value=1, status_effect="shield_ally1")], remove=[0]),
     Perk(description="Replace one +0 card with one +2 Dark card",
          add=[Card(value=2, element="dark")], remove=[0]),
@@ -633,8 +630,7 @@ diviner_perks = [
          add=[Card(value=3, status_effect="curse")], remove=[0]),
     Perk(description="Replace one +0 card with one +2 Regenerate, Self card",
          add=[Card(value=2, status_effect="regenerate")], remove=[0]),
-    Perk(description="Replace one -1 card with \
-    one +1 Heal 2, Affect any Ally card",
+    Perk(description="Replace one -1 card with one +1 Heal 2, Affect any Ally card",
          add=[Card(value=1, status_effect="heal_ally2")], remove=[-1]),
     Perk(description="Add two rolling Heal 1, Self cards",
          add=[Card(is_rolling=True, status_effect="heal_self1"),
