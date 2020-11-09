@@ -118,8 +118,7 @@ class Card:
             second_card_better = True
         elif self.value == "2x" or self.value == "bless":
             second_card_better = False
-        elif card_to_compare.value == "miss" or\
-                card_to_compare.value == "curse":
+        elif card_to_compare.value == "miss" or card_to_compare.value == "curse":
             second_card_better = False
         elif card_to_compare.value == "2x" or card_to_compare.value == "bless":
             second_card_better = True
@@ -154,8 +153,7 @@ class Card:
             second_card_better = True
         elif self.value == "2x" or self.value == "bless":
             second_card_better = False
-        elif card_to_compare.value == "miss" or\
-                card_to_compare.value == "curse":
+        elif card_to_compare.value == "miss" or card_to_compare.value == "curse":
             second_card_better = False
         elif card_to_compare.value == "2x" or card_to_compare.value == "bless":
             second_card_better = True

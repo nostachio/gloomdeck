@@ -117,25 +117,17 @@ class Last_Draw:
                 status_effects['{0}'.format(effect)] += 1
             else:
                 status_effects['{0}'.format(effect)] = True
-        status_effects['push_total'] =\
-            ((1 * status_effects['push1'])
-             + (2 * status_effects['push2']))
-        status_effects['pull_total'] =\
-            (1 * status_effects['pull1'])
-        status_effects['pierce_total'] =\
-            (3 * status_effects['pierce3'])
-        status_effects['target_total'] =\
-            (1 * status_effects['target'])
+        status_effects['push_total'] = ((1 * status_effects['push1']) + (2 * status_effects['push2']))
+        status_effects['pull_total'] = (1 * status_effects['pull1'])
+        status_effects['pierce_total'] = (3 * status_effects['pierce3'])
+        status_effects['target_total'] = (1 * status_effects['target'])
         status_effects['heal_self_total'] = (
             (1 * status_effects['heal_self1'])
             + (2 * status_effects['heal_self2'])
             + (3 * status_effects['heal_self3']))
-        status_effects['heal_ally_total'] =\
-            (2 * status_effects['heal_ally2'])
-        status_effects['shield_self_total'] =\
-            (1 * status_effects['shield_self1'])
-        status_effects['shield_ally_total'] =\
-            (1 * status_effects['shield_ally1'])
+        status_effects['heal_ally_total'] = (2 * status_effects['heal_ally2'])
+        status_effects['shield_self_total'] = (1 * status_effects['shield_self1'])
+        status_effects['shield_ally_total'] = (1 * status_effects['shield_ally1'])
         status_effects.pop('None', None)
         return status_effects
 
@@ -283,8 +275,7 @@ class Deck:
             minimum_cards = 1
         else:
             minimum_cards = 2
-        while len(cards) == 0 or\
-                (len(cards) + len(modifiers)) < minimum_cards:
+        while len(cards) == 0 or (len(cards) + len(modifiers)) < minimum_cards:
             if len(self.current_deck) == 0:
                 self.shuffle()
             choice = random.choice(self.current_deck)

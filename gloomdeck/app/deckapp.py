@@ -158,9 +158,7 @@ class DrawResult(GridLayout):
         self.clear_widgets()
         # ensure there's not 0 elements in a column to prevent divide by zero
         self.add_widget(Label())
-        results = myDeck.last_draw.result_line_attack()\
-            + myDeck.last_draw.result_line_status()\
-            + myDeck.last_draw.result_line_elements()
+        results = myDeck.last_draw.result_line_attack() + myDeck.last_draw.result_line_status() + myDeck.last_draw.result_line_elements()
         for w in results:
             self.add_widget(w)
 
